@@ -55,3 +55,14 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifact to repo
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git checkout main
+          powershell -Command "Compress-Archive -Path 'dist\*' -DestinationPath 'RFID-WMS-Windows-Package.zip' -Force"
+          git add -f RFID-WMS-Windows-Package.zip
+          git commit -m "Update Windows package $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/qw956/rfid-wms.git main
+        shell: cmd
