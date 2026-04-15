@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: write
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,23 +38,9 @@ jobs:
 
       - name: Prepare distribution files
         run: |
-          mkdir dist
-          move RFID-WMS.exe dist\
-          copy rfid-wms\backend\index.html dist\
-          xcopy /E /I rfid-wms\public dist\
-          powershell -Command "Compress-Archive -Path dist\* -DestinationPath RFID-WMS-Windows-Package.zip -Force"
+          powershell -Command "Copy-Item -Recurse rfid-wms/backend/build dist; Remove-Item -Force dist/RFID-WMS.exe -ErrorAction SilentlyContinue; Copy-Item -Force RFID-WMS.exe dist/"
+          powershell -Command "Compress-Archive -Path 'dist\*' -DestinationPath 'RFID-WMS-Windows-Package.zip' -Force"
         shell: cmd
-
-      - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            RFID-WMS-Windows-Package.zip
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact to repo
         run: |
