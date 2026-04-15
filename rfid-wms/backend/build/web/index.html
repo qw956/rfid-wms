@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RFID 标签管理系统 · WMS Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #0f1628;
+    --bg3: #151e35;
+    --card: #111827;
+    --border: rgba(99,179,237,0.12);
+    --border2: rgba(99,179,237,0.25);
+    --accent: #38bdf8;
+    --accent2: #0ea5e9;
+    --green: #34d399;
+    --yellow: #fbbf24;
+    --red: #f87171;
+    --purple: #a78bfa;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #475569;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Noto Sans SC', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .logo {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 20px rgba(56,189,248,0.3);
+  }
+
+  .logo h1 {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+  }
+
+  .logo p {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-section {
+    padding: 16px 12px 8px;
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: var(--mono);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    margin: 2px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text2);
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .nav-item:hover {
+    background: var(--bg3);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: rgba(56,189,248,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(56,189,248,0.2);
+  }
+
+  .nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%; transform: translateY(-50%);
+    width: 3px; height: 20px;
+    background: var(--accent);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+  .badge {
+    margin-left: auto;
+    background: var(--accent2);
+    color: #fff;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-family: var(--mono);
+  }
+
+  .badge.warn { background: var(--yellow); color: #000; }
+
+  .sidebar-bottom {
+    margin-top: auto;
+    padding: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .device-status {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+
+  .device-status .label { color: var(--text3); margin-bottom: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; }
+
+  .device-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 0;
+    color: var(--text2);
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  .dot.offline { background: var(--text3); box-shadow: none; animation: none; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ─── MAIN ─── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .topbar {
+    height: 56px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+  }
+
+  .page-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .page-subtitle {
+    font-size: 12px;
+    color: var(--text3);
+    margin-left: 4px;
+  }
+
+  .topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn {
+    padding: 7px 16px;
+    border-radius: 7px;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    font-family: var(--sans);
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .btn-primary {
+    background: var(--accent2);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+  }
+
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-success { background: var(--green); color: #000; }
+  .btn-success:hover { background: #22c55e; }
+
+  .btn-danger { background: var(--red); color: #fff; }
+  .btn-danger:hover { background: #ef4444; }
+
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+  }
+
+  .content::-webkit-scrollbar { width: 4px; }
+  .content::-webkit-scrollbar-track { background: transparent; }
+  .content::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* ─── PAGE VIEWS ─── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ─── DASHBOARD ─── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: var(--border2); }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    border-radius: 0 12px 0 80px;
+    opacity: 0.05;
+  }
+
+  .stat-card.blue::before { background: var(--accent); }
+  .stat-card.green::before { background: var(--green); }
+  .stat-card.yellow::before { background: var(--yellow); }
+  .stat-card.purple::before { background: var(--purple); }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    font-family: var(--mono);
+    line-height: 1;
+  }
+
+  .stat-card.blue .stat-value { color: var(--accent); }
+  .stat-card.green .stat-value { color: var(--green); }
+  .stat-card.yellow .stat-value { color: var(--yellow); }
+  .stat-card.purple .stat-value { color: var(--purple); }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 6px;
+  }
+
+  /* ─── CARD ─── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .card-action {
+    font-size: 11px;
+    color: var(--accent);
+    cursor: pointer;
+  }
+
+  /* ─── RFID RADAR ─── */
+  .rfid-panel {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .rfid-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+    font-size: 13px; font-weight: 500;
+  }
+
+  .scan-wave {
+    display: flex; align-items: center; gap: 3px;
+  }
+
+  .wave-bar {
+    width: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    animation: wave 1.2s ease-in-out infinite;
+  }
+
+  .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+  .wave-bar:nth-child(3) { height: 10px; animation-delay: 0.3s; }
+  .wave-bar:nth-child(4) { height: 16px; animation-delay: 0.45s; }
+  .wave-bar:nth-child(5) { height: 8px; animation-delay: 0.6s; }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(1); opacity: 0.6; }
+    50% { transform: scaleY(1.5); opacity: 1; }
+  }
+
+  /* ─── TABLE ─── */
+  /* ─── PAGINATION ─── */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 4px;
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .pagination .page-btns {
+    display: flex;
+    gap: 4px;
+  }
+  .pagination .page-btn {
+    min-width: 32px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--card);
+    color: var(--text);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .pagination .page-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .pagination .page-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .pagination .page-btn:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+  }
+  .pagination .page-info {
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    color: var(--text3);
+    font-weight: 400;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: middle;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(99,179,237,0.04); }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+
+  .tag-green { background: rgba(52,211,153,0.12); color: var(--green); }
+  .tag-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); }
+  .tag-red { background: rgba(248,113,113,0.12); color: var(--red); }
+  .tag-blue { background: rgba(56,189,248,0.12); color: var(--accent); }
+  .tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); }
+
+  .rfid-code {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── FORM ─── */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+  label {
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  input, select, textarea {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 9px 12px;
+    color: var(--text);
+    font-size: 13px;
+    font-family: var(--sans);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent2);
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+  }
+
+  select option { background: var(--bg2); }
+
+  /* ─── SCAN ZONE ─── */
+  .scan-zone {
+    background: var(--bg3);
+    border: 2px dashed var(--border2);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 16px;
+  }
+
+  .scan-zone:hover {
+    border-color: var(--accent);
+    background: rgba(56,189,248,0.04);
+  }
+
+  .scan-zone.scanning {
+    border-color: var(--accent);
+    animation: scanPulse 1.5s infinite;
+  }
+
+  @keyframes scanPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.2); }
+    50% { box-shadow: 0 0 0 12px rgba(56,189,248,0); }
+  }
+
+  .scan-icon { font-size: 40px; margin-bottom: 10px; }
+  .scan-text { font-size: 14px; color: var(--text2); }
+  .scan-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  /* ─── FILTER BAR ─── */
+  .filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 14px;
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    width: 520px;
+    max-width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+
+  .modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 6px;
+  }
+
+  .modal-close:hover {
+    background: var(--bg3);
+    color: var(--text);
+  }
+
+  .modal-body { padding: 24px; }
+
+  .modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── EDITABLE CELLS ─── */
+  .editable-cell {
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .editable-cell:hover {
+    background: rgba(56,189,248,0.1);
+    color: var(--accent);
+  }
+
+  .editable-cell input {
+    background: var(--bg);
+    border: 1px solid var(--accent2);
+    color: var(--text);
+    padding: 4px 8px;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  /* scroll reveal */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page.active > * {
+    animation: fadeUp 0.3s ease forwards;
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── SIDEBAR ─── -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">📦</div>
+    <h1>WMS PRO</h1>
+    <p>RFID 标签管理系统</p>
+  </div>
+
+  <div class="nav-section">主功能</div>
+
+  <div class="nav-item active" onclick="showPage('dashboard', this)">
+    <span class="nav-icon">⚡</span> 仪表盘
+  </div>
+  <div class="nav-item" onclick="showPage('tags', this)">
+    <span class="nav-icon">🏷️</span> 标签管理
+    <span class="badge" id="tagCount">0</span>
+  </div>
+  <div class="nav-item" onclick="showPage('categories', this)">
+    <span class="nav-icon">📁</span> 类别管理
+  </div>
+  <div class="nav-item" onclick="showPage('inventory', this)">
+    <span class="nav-icon">🗂️</span> 库存管理
+  </div>
+
+
+  <div class="nav-item" onclick="showPage('session', this)">
+    <span class="nav-icon">📲</span> 扫描会话
+    <span class="badge warn" id="sessionBadge" style="display:none;">实时</span>
+  </div>
+  <div class="nav-item" onclick="showPage('scanfiles', this)">
+    <span class="nav-icon">📂</span> 扫描文件
+  </div>
+
+  <div class="nav-section">系统</div>
+
+  <div class="nav-item" onclick="showPage('device', this)">
+    <span class="nav-icon">⚙️</span> 系统管理
+  </div>
+
+  <div class="sidebar-bottom">
+    <a href="/android-app/app/build/outputs/apk/debug/app-debug.apk" download="rfid-wms-pda.apk"
+       style="display:block;margin-bottom:12px;background:var(--accent);color:#fff;text-align:center;padding:10px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">
+      📱 下载 PDA 安装包 (APK)
+    </a>
+    <div class="device-status">
+      <div class="label">系统状态</div>
+      <div class="device-row"><span class="dot" style="background:var(--green);"></span> <span id="sidebarTagCount">-</span> 标签</div>
+      <div class="device-row"><span class="dot" style="background:var(--accent);"></span> <span id="sidebarTodayScans">-</span> 今日扫描</div>
+      <div class="device-row" style="margin-top:4px;">
+        <span class="dot offline" id="wsDot"></span>
+        <span id="wsStatus" style="font-size:10px;color:var(--text3);">WebSocket 未连接</span>
+      </div>
+      <div id="pdaListStatus" style="margin-top:6px;display:none;">
+        <div style="font-size:9px;color:var(--text3);margin-bottom:3px;">📱 在线 PDA</div>
+        <div id="pdaListItems" style="font-size:10px;color:var(--green);line-height:1.6;"></div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── MAIN ─── -->
+<main class="main">
+  <header class="topbar">
+    <span class="page-title" id="pageTitle">仪表盘</span>
+    <span class="page-subtitle" id="pageSubtitle">今日概览</span>
+    <div class="topbar-right">
+      <div class="scan-wave" title="RFID 信号">
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+      </div>
+      <button class="btn btn-outline" id="exportBtn" onclick="exportAllData()">📥 导出 Excel</button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- ══ DASHBOARD ══ -->
+    <div class="page active" id="page-dashboard">
+      <div class="stat-grid">
+        <div class="stat-card blue">
+          <div class="stat-label">RFID 标签总数</div>
+          <div class="stat-value" id="statTags">0</div>
+          <div class="stat-sub">已绑定货品</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">库存 SKU</div>
+          <div class="stat-value" id="statSku">0</div>
+          <div class="stat-sub">唯一品号</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-label">库存总量</div>
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-sub">件/箱</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📋 最新标签记录</span>
+          <span class="card-action" onclick="showPage('tags', document.querySelectorAll('.nav-item')[1])">查看全部 →</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>RFID 标签</th>
+                <th>名称</th>
+                <th>类别</th>
+                <th>数量</th>
+                <th>存放位置</th>
+                <th>使用部门</th>
+                <th>使用人</th>
+                <th>入库/采购时间</th>
+                <th>更新时间</th>
+              </tr>
+            </thead>
+            <tbody id="recentTags">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAGS MANAGEMENT ══ -->
+    <div class="page" id="page-tags">
+      <div class="filter-bar">
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap;font-size:12px;color:var(--text2);">
+          <input type="checkbox" id="tagSelectAll" onchange="toggleSelectAll(this.checked)" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;">
+          全选
+        </label>
+        <input type="text" class="search-input" id="tagSearch" placeholder="🔍 搜索标签、名称、类别、位置…" oninput="filterTags()">
+        <select style="width:140px;" id="categoryFilter" onchange="filterTags()">
+          <option value="">全部类别</option>
+          <!-- 动态加载 -->
+        </select>
+        <button class="btn btn-danger" id="batchDeleteBtn" style="display:none;padding:6px 14px;font-size:12px;" onclick="batchDeleteTags()">
+          🗑️ 删除选中 (<span id="selectedCount">0</span>)
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:36px;"><input type="checkbox" id="tagSelectAll2" onchange="toggleSelectAll(this.checked)" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;"></th>
+                <th>RFID 标签</th>
+                <th>名称</th>
+                <th>类别</th>
+                <th>数量</th>
+                <th>存放位置</th>
+                <th>使用部门</th>
+                <th>使用人</th>
+                <th>入库/采购时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="tagsTable">
+            </tbody>
+          </table>
+        </div>
+        <div id="tagsPagination"></div>
+      </div>
+    </div>
+
+    <!-- ══ INVENTORY ══ -->
+    <div class="page" id="page-inventory">
+      <div class="filter-bar">
+        <input type="text" class="search-input" placeholder="🔍 搜索 SKU、品名、位置…" oninput="filterInventory()">
+        <select style="width:140px;" id="invCategoryFilter" onchange="filterInventory()">
+          <option value="">全部类别</option>
+          <!-- 动态加载 -->
+        </select>
+        <button class="btn btn-outline" onclick="showPage('tags', document.querySelectorAll('.nav-item')[1])">编辑标签</button>
+      </div>
+
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>RFID 标签</th>
+                <th>名称</th>
+                <th>类别</th>
+                <th>数量</th>
+                <th>存放位置</th>
+                <th>使用部门</th>
+                <th>使用人</th>
+                <th>入库/采购时间</th>
+                <th>更新时间</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTable">
+            </tbody>
+          </table>
+        </div>
+        <div id="inventoryPagination"></div>
+      </div>
+    </div>
+
+    <!-- ══ DEVICE ══ -->
+    <div class="page" id="page-device">
+      <!-- 系统概览 -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;">
+        <div class="card" style="padding:16px;">
+          <div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:var(--mono);">标签总数</div>
+          <div id="sysTotalTags" style="font-size:24px;font-weight:700;color:var(--accent);">-</div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:var(--mono);">今日扫描</div>
+          <div id="sysTodayScans" style="font-size:24px;font-weight:700;color:var(--green);">-</div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:var(--mono);">数据库大小</div>
+          <div id="sysDbSize" style="font-size:24px;font-weight:700;color:var(--text1);">-</div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:var(--mono);">操作记录</div>
+          <div id="sysTotalLogs" style="font-size:24px;font-weight:700;color:var(--text1);">-</div>
+        </div>
+      </div>
+
+      <!-- 7天扫描趋势 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <span class="card-title">📊 近 7 天扫描趋势</span>
+        </div>
+        <div id="scanTrendChart" style="padding:16px;min-height:120px;">
+          <div style="color:var(--text3);font-size:12px;">加载中...</div>
+        </div>
+      </div>
+
+      <!-- APP 信息 & 下载 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">
+          <span class="card-title">📲 Android 扫描 APP</span>
+          <span id="apkStatus" class="tag tag-green">可用</span>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center;margin-bottom:12px;">
+          <div style="flex:1;">
+            <div style="font-size:11px;color:var(--text3);line-height:1.8;">
+              <div>版本: <span style="color:var(--text1);">Debug Build</span></div>
+              <div>大小: <span id="apkSize" style="color:var(--text1);">-</span></div>
+              <div>更新: <span id="apkTime" style="color:var(--text1);">-</span></div>
+            </div>
+          </div>
+          <a href="/download/apk" class="btn btn-primary" style="text-decoration:none;" download>📥 下载 APK</a>
+        </div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.6;">
+          安装到 RFID 手持终端（ES-UH8600），支持离线扫描、自动去重、网络恢复后同步上传。
+        </div>
+      </div>
+
+      <!-- 操作日志 -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📋 操作日志</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline" onclick="loadLogs()" style="padding:4px 12px;font-size:11px;">🔄 刷新</button>
+            <button class="btn btn-outline" onclick="clearLogs()" style="padding:4px 12px;font-size:11px;">🗑️ 清空</button>
+          </div>
+        </div>
+        <div id="logsList" style="max-height:400px;overflow-y:auto;">
+          <div style="color:var(--text3);font-size:12px;">加载中...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CATEGORIES ══ -->
+    <div class="page" id="page-categories">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📁 标签类别管理</span>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="text" id="newCatName" placeholder="输入新类别名称..." style="padding:6px 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;width:180px;">
+            <button class="btn btn-primary" style="font-size:12px;padding:6px 14px;" onclick="addCategory()">➕ 添加</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>类别名称</th>
+                <th>标签数量</th>
+                <th>创建时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesTable">
+              <tr><td colspan="5" style="text-align:center;color:var(--text3);padding:24px;">加载中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SCAN SESSION ══ -->
+    <div class="page" id="page-session">
+      <!-- 会话状态栏 -->
+      <div class="card" style="margin-bottom:16px;padding:14px 20px;">
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="dot offline" id="sessActiveDot"></span>
+            <span style="font-size:13px;" id="sessStatusText">暂无活动会话</span>
+          </div>
+          <span style="font-family:var(--mono);font-size:11px;color:var(--text3);" id="sessIdText"></span>
+          <div style="margin-left:auto;display:flex;gap:8px;">
+            <button class="btn btn-outline" style="font-size:11px;" onclick="refreshSession()">🔄 刷新</button>
+            <button class="btn btn-success" id="sessSaveBtn" onclick="commitSession()" style="display:none;">💾 保存到标签库</button>
+            <button class="btn btn-danger" id="sessClearBtn" onclick="clearSession()" style="display:none;">🗑️ 清空会话</button>
+            <button class="btn btn-outline" id="sessExportBtn" onclick="exportSessionLocal()" style="display:none;">📥 导出本地</button>
+          </div>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:24px;font-size:12px;">
+          <span style="color:var(--text3);">标签数: <span id="sessTagCount" style="color:var(--accent);font-weight:700;">0</span></span>
+          <span style="color:var(--text3);">最后更新: <span id="sessLastUpdate" style="color:var(--text2);">-</span></span>
+        </div>
+      </div>
+
+      <!-- 会话标签表 -->
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>RFID 标签</th>
+                <th>标签名称</th>
+                <th>类别</th>
+                <th>数量</th>
+                <th>存放位置</th>
+                <th>使用部门</th>
+                <th>使用人</th>
+                <th>入库/采购时间</th>
+                <th>扫描时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="sessionTable">
+              <tr><td colspan="10" style="text-align:center;color:var(--text3);padding:32px;">暂无扫描数据，等待 PDA 设备扫描…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SCAN FILES ══ -->
+    <div class="page" id="page-scanfiles">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📂 历史扫描文件</span>
+          <button class="btn btn-outline" style="font-size:11px;" onclick="loadScanFiles()">🔄 刷新</button>
+        </div>
+        <div id="scanFilesList">
+          <div style="color:var(--text3);font-size:12px;padding:24px;text-align:center;">加载中...</div>
+        </div>
+        <div id="scanfilesPagination"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ══ EDIT MODAL ══ -->
+<div class="modal-overlay" id="editModal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">✏️ 编辑标签</span>
+      <button class="modal-close" onclick="closeEditModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editEpc">
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>RFID 标签（只读）</label>
+        <input type="text" id="editEpcDisplay" readonly style="color:var(--text3);">
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>名称</label>
+        <input type="text" id="editName" placeholder="货品名称">
+      </div>
+      <div class="form-grid" style="margin-bottom:12px;">
+        <div class="form-group">
+          <label>类别</label>
+          <select id="editCategory">
+            <!-- 动态加载 -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label>数量</label>
+          <input type="number" id="editQty" placeholder="数量" min="1">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>存放位置</label>
+        <input type="text" id="editLocation" placeholder="如：A-03-02">
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>使用部门</label>
+        <input type="text" id="editDepartment" placeholder="如：研发部">
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>使用人</label>
+        <input type="text" id="editUserName" placeholder="如：张三">
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>入库/采购时间</label>
+        <input type="date" id="editPurchaseDate">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" onclick="deleteTag()">🗑️ 删除标签</button>
+      <button class="btn btn-outline" onclick="closeEditModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveEditTag()">💾 保存修改</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAG DETAIL MODAL ══ -->
+<div class="modal-overlay" id="tagDetailModal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">🏷️ 标签详情</span>
+      <button class="modal-close" onclick="closeTagDetail()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="rfid-panel" style="margin-bottom:16px;">
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:var(--mono);">RFID EPC</div>
+        <div style="font-family:var(--mono);font-size:15px;color:var(--accent);word-break:break-all;" id="detailEpc">-</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;">
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">标签名称</div>
+          <div style="color:var(--text);font-weight:500;" id="detailName">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">类别</div>
+          <div id="detailCategory">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">数量</div>
+          <div style="font-family:var(--mono);color:var(--green);font-weight:700;" id="detailQty">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">存放位置</div>
+          <div id="detailLocation">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">使用部门</div>
+          <div id="detailDepartment">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">使用人</div>
+          <div id="detailUserName">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">入库/采购时间</div>
+          <div id="detailPurchaseDate">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">TID</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--text3);" id="detailTid">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">信号强度</div>
+          <div style="font-family:var(--mono);" id="detailRssi">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">扫描次数</div>
+          <div style="font-family:var(--mono);color:var(--purple);" id="detailScanCount">-</div>
+        </div>
+        <div>
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">最后扫描</div>
+          <div style="font-size:11px;color:var(--text3);" id="detailLastScan">-</div>
+        </div>
+        <div style="grid-column:span 2;">
+          <div style="color:var(--text3);font-size:10px;margin-bottom:4px;">创建时间</div>
+          <div style="font-size:11px;color:var(--text3);" id="detailCreated">-</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeTagDetail()">关闭</button>
+      <button class="btn btn-primary" id="detailEditBtn">✏️ 编辑此标签</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REMOTE WRITE MODAL ══ -->
+<!-- ══ SESSION EDIT MODAL ══ -->
+<div class="modal-overlay" id="sessionEditModal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">✏️ 编辑会话标签</span>
+      <button class="modal-close" onclick="closeSessionEditModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="sessEditEpc">
+      <input type="hidden" id="sessEditSessionId">
+      <div class="rfid-panel" style="margin-bottom:12px;">
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px;">EPC</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--accent);" id="sessEditEpcDisplay">-</div>
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>标签名称</label>
+        <input type="text" id="sessEditName" placeholder="货品名称">
+      </div>
+      <div class="form-grid" style="margin-bottom:12px;">
+        <div class="form-group">
+          <label>类别</label>
+          <select id="sessEditCategory">
+            <option value="">请选择</option>
+            <!-- 动态加载 -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label>数量</label>
+          <input type="number" id="sessEditQty" placeholder="数量" min="1">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>存放位置</label>
+        <input type="text" id="sessEditLocation" placeholder="如：A-03-02">
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>使用部门</label>
+        <input type="text" id="sessEditDepartment" placeholder="如：研发部">
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>使用人</label>
+        <input type="text" id="sessEditUserName" placeholder="如：张三">
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>入库/采购时间</label>
+        <input type="date" id="sessEditPurchaseDate">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeSessionEditModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveSessionEdit()">💾 保存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═════════════════════════════════════════════════════
+// DATA STORE
+// ═════════════════════════════════════════════════════
+// 动态获取 API 地址：同主机访问用 localhost，跨设备访问用当前 hostname
+const API_BASE = `${window.location.protocol}//${window.location.hostname}:3000/api`;
+
+let rfidTags = [];
+let allCategories = []; // 动态类别列表
+
+// 从 API 加载标签数据
+async function loadTags() {
+  try {
+    const res = await fetch(`${API_BASE}/tags`);
+    const data = await res.json();
+    if (data.success) {
+      rfidTags = data.tags || [];
+      console.log('✅ 加载标签成功:', rfidTags.length, '条');
+    }
+  } catch (e) {
+    console.error('❌ 加载标签失败:', e);
+    // 失败时使用本地缓存数据
+    if (rfidTags.length === 0) {
+      rfidTags = [
+        { epc: 'E200 3412 7C0A 8F21', name: '工业螺丝 M6×20', category: '紧固件', qty: 580, location: 'B-03-02', updated: new Date().toISOString() },
+        { epc: 'E200 3412 6B2D 4E19', name: '电机驱动板 4kW', category: '电子元器件', qty: 45, location: 'C-05-01', updated: new Date().toISOString() },
+      ];
+    }
+  }
+}
+
+// 扫描上传标签
+async function scanTag(epc) {
+  try {
+    const res = await fetch(`${API_BASE}/tags/scan`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ epc })
+    });
+    const data = await res.json();
+    if (data.success) {
+      console.log('✅ 扫描成功:', epc);
+      await loadTags(); // 刷新标签列表
+      updateStats();
+      return true;
+    }
+  } catch (e) {
+    console.error('❌ 扫描失败:', e);
+  }
+  return false;
+}
+
+// 更新标签
+async function updateTag(epc, tagData) {
+  try {
+    const res = await fetch(`${API_BASE}/tags/${epc}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(tagData)
+    });
+    const data = await res.json();
+    if (data.success) {
+      console.log('✅ 更新成功:', epc);
+      await loadTags(); // 刷新标签列表
+      updateStats();
+      return true;
+    }
+  } catch (e) {
+    console.error('❌ 更新失败:', e);
+  }
+  return false;
+}
+
+// 删除标签
+async function deleteTag(epc) {
+  if (!confirm(`确定要删除标签 ${epc} 吗?`)) return false;
+  
+  try {
+    const res = await fetch(`${API_BASE}/tags/${epc}`, {
+      method: 'DELETE'
+    });
+    const data = await res.json();
+    if (data.success) {
+      console.log('✅ 删除成功:', epc);
+      await loadTags(); // 刷新标签列表
+      updateStats();
+      return true;
+    }
+  } catch (e) {
+    console.error('❌ 删除失败:', e);
+  }
+  return false;
+}
+
+// 导出 Excel
+async function exportExcel() {
+  try {
+    window.location.href = `${API_BASE}/tags/export`;
+    console.log('✅ 导出 Excel 成功');
+  } catch (e) {
+    console.error('❌ 导出 Excel 失败:', e);
+    alert('导出失败,请检查服务器是否正常运行');
+  }
+}
+
+// ═════════════════════════════════════════════════════
+// NAVIGATION
+// ═════════════════════════════════════════════════════
+// PAGINATION 通用分页
+// ═════════════════════════════════════════════════════
+const PAGE_SIZE = 50;
+const pagerState = { tags: 1, inventory: 1, scanfiles: 1 };
+
+function paginate(arr, key) {
+  const total = arr.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (pagerState[key] > totalPages) pagerState[key] = totalPages;
+  const cur = pagerState[key];
+  const start = (cur - 1) * PAGE_SIZE;
+  const pageData = arr.slice(start, start + PAGE_SIZE);
+  return { data: pageData, cur, totalPages, total };
+}
+
+function renderPagination(key, { cur, totalPages, total }) {
+  if (totalPages <= 1) return '';
+  let btns = '';
+  btns += `<button class="page-btn" onclick="goPage('${key}',${cur - 1})" ${cur <= 1 ? 'disabled' : ''}>上一页</button>`;
+  const range = getPageRange(cur, totalPages);
+  range.forEach(p => {
+    if (p === '...') {
+      btns += `<span class="page-btn" style="border:none;cursor:default;opacity:.5;">…</span>`;
+    } else {
+      btns += `<button class="page-btn ${p === cur ? 'active' : ''}" onclick="goPage('${key}',${p})">${p}</button>`;
+    }
+  });
+  btns += `<button class="page-btn" onclick="goPage('${key}',${cur + 1})" ${cur >= totalPages ? 'disabled' : ''}>下一页</button>`;
+  return `<div class="pagination"><span class="page-info">共 ${total} 条，${cur}/${totalPages} 页</span><div class="page-btns">${btns}</div></div>`;
+}
+
+function getPageRange(cur, total) {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages = [];
+  pages.push(1);
+  if (cur > 3) pages.push('...');
+  for (let i = Math.max(2, cur - 1); i <= Math.min(total - 1, cur + 1); i++) pages.push(i);
+  if (cur < total - 2) pages.push('...');
+  pages.push(total);
+  return pages;
+}
+
+function goPage(key, page) {
+  pagerState[key] = page;
+  if (key === 'tags') renderTagsTable();
+  else if (key === 'inventory') renderInventoryTable();
+  else if (key === 'scanfiles') loadScanFiles();
+}
+
+const pageTitles = {
+  dashboard: ['仪表盘', '今日概览'],
+  tags: ['标签管理', 'RFID 标签读写编辑'],
+  categories: ['类别管理', '标签类别的增删改'],
+  inventory: ['库存管理', '实时库存查询'],
+  session: ['扫描会话', 'PDA 实时扫描数据 · 编辑后保存到标签库'],
+  scanfiles: ['扫描文件', '历史扫描记录下载'],
+  device: ['系统管理', '系统信息与操作日志'],
+};
+
+function showPage(name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  const [title, sub] = pageTitles[name] || [name, ''];
+  document.getElementById('pageTitle').textContent = title;
+  document.getElementById('pageSubtitle').textContent = '· ' + sub;
+  refreshPage(name);
+}
+
+// ═════════════════════════════════════════════════════
+// DATA RENDERING
+// ═════════════════════════════════════════════════════
+function formatDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+}
+
+function updateStats() {
+  document.getElementById('statTags').textContent = rfidTags.length;
+  document.getElementById('statSku').textContent = rfidTags.length;
+  document.getElementById('statTotal').textContent = rfidTags.reduce((a,t) => a + t.qty, 0);
+  document.getElementById('tagCount').textContent = rfidTags.length;
+
+  // 更新侧边栏
+  document.getElementById('sidebarTagCount').textContent = rfidTags.length;
+  document.getElementById('sidebarTodayScans').textContent = rfidTags.filter(t => {
+    if (!t.lastScan) return false;
+    return t.lastScan.startsWith(new Date().toISOString().split('T')[0]);
+  }).length;
+}
+
+function renderRecentTags() {
+  const tbody = document.getElementById('recentTags');
+  tbody.innerHTML = rfidTags.slice(0, 5).map(t => `
+    <tr>
+      <td><span class="rfid-code">${t.epc}</span></td>
+      <td>${t.name}</td>
+      <td><span class="tag tag-blue">${t.category}</span></td>
+      <td>${t.qty}</td>
+      <td>${t.location}</td>
+      <td>${t.department || ''}</td>
+      <td>${t.user_name || ''}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--text3);">${t.purchase_date || ''}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--text3);">${formatDate(t.updated)}</td>
+    </tr>
+  `).join('');
+}
+
+function renderTagsTable(data = rfidTags) {
+  const tbody = document.getElementById('tagsTable');
+  const pg = paginate(data, 'tags');
+  tbody.innerHTML = pg.data.map(t => `
+    <tr>
+      <td><input type="checkbox" class="tag-cb" data-epc="${t.epc.replace(/"/g,'&quot;')}" ${selectedEpcs.has(t.epc) ? 'checked' : ''} onchange="updateBatchUI()" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;"></td>
+      <td><span class="rfid-code" style="cursor:pointer;color:var(--accent);" onclick="openTagDetail('${t.epc.replace(/'/g,"\\'")}')">🔍 ${t.epc}</span></td>
+      <td>${t.name}</td>
+      <td><span class="tag tag-blue">${t.category}</span></td>
+      <td style="font-family:var(--mono);">${t.qty}</td>
+      <td>${t.location}</td>
+      <td>${t.department || ''}</td>
+      <td>${t.user_name || ''}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--text3);">${t.purchase_date || ''}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--text3);">${formatDate(t.updated)}</td>
+      <td style="display:flex;gap:6px;">
+        <button class="btn btn-primary" style="padding:3px 10px;font-size:11px;" onclick="openEditModal('${t.epc.replace(/'/g,"\\'")}')">✏️ 编辑</button>
+        <button class="btn btn-danger" style="padding:3px 10px;font-size:11px;" onclick="deleteTagDirect('${t.epc.replace(/'/g,"\\'")}')">🗑️</button>
+      </td>
+    </tr>
+  `).join('');
+  document.getElementById('tagsPagination').innerHTML = renderPagination('tags', pg);
+  updateBatchUI();
+}
+
+function renderInventoryTable(data = rfidTags) {
+  const tbody = document.getElementById('inventoryTable');
+  const pg = paginate(data, 'inventory');
+  tbody.innerHTML = pg.data.map(t => `
+    <tr>
+      <td><span class="rfid-code">${t.epc}</span></td>
+      <td>${t.name}</td>
+      <td><span class="tag tag-blue">${t.category}</span></td>
+      <td>${t.qty}</td>
+      <td>${t.location}</td>
+      <td>${t.department || ''}</td>
+      <td>${t.user_name || ''}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--text3);">${t.purchase_date || ''}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--text3);">${formatDate(t.updated)}</td>
+    </tr>
+  `).join('');
+  document.getElementById('inventoryPagination').innerHTML = renderPagination('inventory', pg);
+}
+
+function refreshPage(name) {
+  if (name === 'dashboard') {
+    updateStats();
+    renderRecentTags();
+  } else if (name === 'tags') {
+    renderTagsTable();
+  } else if (name === 'categories') {
+    loadCategories();
+  } else if (name === 'inventory') {
+    renderInventoryTable();
+  } else if (name === 'session') {
+    loadSessionPage();
+  } else if (name === 'scanfiles') {
+    loadScanFiles();
+  } else if (name === 'device') {
+    loadSystemInfo();
+    loadLogs();
+  }
+}
+
+// ═════════════════════════════════════════════════════
+// FILTERING
+// ═════════════════════════════════════════════════════
+function filterTags() {
+  pagerState.tags = 1;
+  const search = document.getElementById('tagSearch').value.toLowerCase();
+  const cat = document.getElementById('categoryFilter').value;
+  const filtered = rfidTags.filter(t =>
+    (t.epc.toLowerCase().includes(search) || t.name.toLowerCase().includes(search) || t.location.toLowerCase().includes(search)) &&
+    (!cat || t.category === cat)
+  );
+  renderTagsTable(filtered);
+}
+
+function filterInventory() {
+  pagerState.inventory = 1;
+  const search = document.getElementById('invSearch')?.value?.toLowerCase() || '';
+  const cat = document.getElementById('invCategoryFilter').value;
+  const filtered = rfidTags.filter(t =>
+    (t.epc.toLowerCase().includes(search) || t.name.toLowerCase().includes(search) || t.location.toLowerCase().includes(search)) &&
+    (!cat || t.category === cat)
+  );
+  renderInventoryTable(filtered);
+}
+
+// ═════════════════════════════════════════════════════
+// EDIT MODAL
+// ═════════════════════════════════════════════════════
+function openEditModal(epc) {
+  const tag = rfidTags.find(t => t.epc === epc);
+  if (!tag) return;
+
+  // 确保下拉框有最新类别
+  document.getElementById('editCategory').innerHTML = getCategoryOptions(tag.category, false);
+
+  document.getElementById('editEpc').value = tag.epc;
+  document.getElementById('editEpcDisplay').value = tag.epc;
+  document.getElementById('editName').value = tag.name;
+  document.getElementById('editCategory').value = tag.category;
+  document.getElementById('editQty').value = tag.qty;
+  document.getElementById('editLocation').value = tag.location;
+  document.getElementById('editDepartment').value = tag.department || '';
+  document.getElementById('editUserName').value = tag.user_name || '';
+  document.getElementById('editPurchaseDate').value = tag.purchase_date || '';
+  document.getElementById('editModal').style.display = 'flex';
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+function saveEditTag() {
+  const epc = document.getElementById('editEpc').value;
+  const name = document.getElementById('editName').value;
+  const category = document.getElementById('editCategory').value;
+  const qty = parseInt(document.getElementById('editQty').value) || 0;
+  const location = document.getElementById('editLocation').value;
+  const department = document.getElementById('editDepartment').value;
+  const user_name = document.getElementById('editUserName').value;
+  const purchase_date = document.getElementById('editPurchaseDate').value;
+
+  if (!name) {
+    alert('请填写标签名称');
+    return;
+  }
+
+  updateTag(epc, { name, category, qty, location, department, user_name, ...(purchase_date ? { purchase_date } : {}) }).then(success => {
+    if (success) {
+      closeEditModal();
+      alert('标签已更新！');
+    } else {
+      alert('更新失败，请重试');
+    }
+  });
+}
+
+// 从编辑弹窗删除标签（调用后端 API）
+function deleteTag() {
+  const epc = document.getElementById('editEpc').value;
+  if (!confirm(`确定要删除标签\n${epc}\n此操作不可恢复！`)) return;
+
+  fetch(`${API_BASE}/tags/${encodeURIComponent(epc)}`, { method: 'DELETE' })
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+        rfidTags = rfidTags.filter(t => t.epc !== epc);
+        updateStats();
+        renderTagsTable();
+        renderInventoryTable();
+        renderRecentTags();
+        closeEditModal();
+      } else {
+        alert('删除失败: ' + (data.message || '未知错误'));
+      }
+    })
+    .catch(() => alert('删除失败，请检查网络连接'));
+}
+
+// 表格行独立删除按钮
+function deleteTagDirect(epc) {
+  if (!confirm(`确定要删除标签\n${epc}\n此操作不可恢复！`)) return;
+
+  fetch(`${API_BASE}/tags/${encodeURIComponent(epc)}`, { method: 'DELETE' })
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+        rfidTags = rfidTags.filter(t => t.epc !== epc);
+        updateStats();
+        renderTagsTable();
+        renderInventoryTable();
+        renderRecentTags();
+      } else {
+        alert('删除失败: ' + (data.message || '未知错误'));
+      }
+    })
+    .catch(() => alert('删除失败，请检查网络连接'));
+}
+
+// ── 批量选择 & 删除 ──
+const selectedEpcs = new Set();
+
+function toggleSelectAll(checked) {
+  const cbs = document.querySelectorAll('.tag-cb');
+  cbs.forEach(cb => {
+    cb.checked = checked;
+    if (checked) selectedEpcs.add(cb.dataset.epc);
+    else selectedEpcs.delete(cb.dataset.epc);
+  });
+  document.getElementById('tagSelectAll').checked = checked;
+  document.getElementById('tagSelectAll2').checked = checked;
+  updateBatchUI();
+}
+
+function updateBatchUI() {
+  const cbs = document.querySelectorAll('.tag-cb');
+  let pageChecked = 0;
+  cbs.forEach(cb => { if (cb.checked) { pageChecked++; selectedEpcs.add(cb.dataset.epc); } else { selectedEpcs.delete(cb.dataset.epc); } });
+  // 同步当前页未在 DOM 中勾选但已在 Set 里的（翻页后恢复）
+  cbs.forEach(cb => { if (selectedEpcs.has(cb.dataset.epc)) cb.checked = true; });
+  const total = selectedEpcs.size;
+  document.getElementById('selectedCount').textContent = total;
+  document.getElementById('batchDeleteBtn').style.display = total > 0 ? '' : 'none';
+  document.getElementById('tagSelectAll').checked = pageChecked === cbs.length && cbs.length > 0;
+  // 更新导出按钮文字
+  const exportBtn = document.getElementById('exportBtn');
+  exportBtn.textContent = total > 0 ? `📥 导出选中(${total})` : '📥 导出 Excel';
+}
+
+async function batchDeleteTags() {
+  const epcs = [...selectedEpcs];
+  if (epcs.length === 0) return;
+  if (!confirm(`确定要批量删除 ${epcs.length} 个标签吗？\n此操作不可恢复！`)) return;
+
+  try {
+    console.log('batchDelete epcs:', epcs);
+    const url = `${API_BASE}/tags/batch-delete`;
+    console.log('fetch url:', url);
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ epcs })
+    });
+    console.log('res status:', res.status, res.ok);
+    if (!res.ok) {
+      const text = await res.text();
+      console.error('batch-delete error response:', text);
+      alert('批量删除失败: HTTP ' + res.status + ' ' + text);
+      return;
+    }
+    const data = await res.json();
+    if (data.success) {
+      rfidTags = rfidTags.filter(t => !epcs.includes(t.epc));
+      selectedEpcs.clear();
+      updateStats();
+      renderTagsTable();
+      renderInventoryTable();
+      renderRecentTags();
+      updateBatchUI();
+    } else {
+      alert('批量删除失败: ' + (data.message || '未知错误'));
+    }
+  } catch (e) {
+    alert('批量删除失败，请检查网络连接');
+  }
+}
+
+// 点击标签 EPC 显示详情
+function openTagDetail(epc) {
+  const tag = rfidTags.find(t => t.epc === epc);
+  if (!tag) return;
+
+  document.getElementById('detailEpc').textContent = tag.epc;
+  document.getElementById('detailName').textContent = tag.name || '-';
+  document.getElementById('detailCategory').textContent = tag.category || '-';
+  document.getElementById('detailQty').textContent = tag.qty ?? '-';
+  document.getElementById('detailLocation').textContent = tag.location || '-';
+  document.getElementById('detailDepartment').textContent = tag.department || '-';
+  document.getElementById('detailUserName').textContent = tag.user_name || '-';
+  document.getElementById('detailPurchaseDate').textContent = tag.purchase_date || '-';
+  document.getElementById('detailTid').textContent = tag.tid || '-';
+  document.getElementById('detailRssi').textContent = tag.rssi != null ? tag.rssi + ' dBm' : '-';
+  document.getElementById('detailScanCount').textContent = tag.scanCount ?? '-';
+  document.getElementById('detailCreated').textContent = tag.created ? formatDate(tag.created) : '-';
+  document.getElementById('detailLastScan').textContent = tag.lastScan ? formatDate(tag.lastScan) : '-';
+  document.getElementById('detailEditBtn').onclick = () => { closeTagDetail(); openEditModal(epc); };
+  document.getElementById('tagDetailModal').style.display = 'flex';
+}
+
+function closeTagDetail() {
+  document.getElementById('tagDetailModal').style.display = 'none';
+}
+
+// ═════════════════════════════════════════════════════
+// SYSTEM MANAGEMENT
+// ═════════════════════════════════════════════════════
+
+async function loadSystemInfo() {
+  try {
+    const res = await fetch(`${API_BASE}/system`);
+    const data = await res.json();
+    if (!data.success) return;
+
+    const sys = data.system;
+
+    // 概览数字
+    const stats = await (await fetch(`${API_BASE}/stats`)).json();
+    document.getElementById('sysTotalTags').textContent = stats.stats.totalTags;
+    document.getElementById('sysTodayScans').textContent = stats.stats.todayScans;
+    document.getElementById('sysDbSize').textContent = sys.dbSize;
+    document.getElementById('sysTotalLogs').textContent = sys.totalLogs;
+
+    // APK 信息
+    document.getElementById('apkStatus').textContent = sys.apk.exists ? '可用' : '未构建';
+    document.getElementById('apkStatus').className = 'tag ' + (sys.apk.exists ? 'tag-green' : 'tag-red');
+    document.getElementById('apkSize').textContent = sys.apk.size;
+    document.getElementById('apkTime').textContent = sys.apk.updated ? new Date(sys.apk.updated).toLocaleString('zh-CN') : '-';
+
+    // 7天趋势图
+    renderScanTrend(sys.dailyScans, sys.actionStats);
+  } catch (e) {
+    console.error('加载系统信息失败:', e);
+  }
+}
+
+function renderScanTrend(dailyScans, actionStats) {
+  const container = document.getElementById('scanTrendChart');
+
+  // 生成近 7 天日期标签
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    days.push(d.toISOString().split('T')[0]);
+  }
+
+  // 匹配每天的扫描数
+  const scanMap = {};
+  dailyScans.forEach(s => { scanMap[s.date] = s.count; });
+  const values = days.map(d => scanMap[d] || 0);
+  const maxVal = Math.max(...values, 1);
+
+  // 操作类型统计
+  const actionLabels = {
+    TAG_SCAN: '扫描', TAG_UPDATE: '编辑', TAG_DELETE: '删除',
+    EXPORT: '导出'
+  };
+
+  let statsHtml = '<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;">';
+  actionStats.forEach(a => {
+    const label = actionLabels[a.action] || a.action;
+    statsHtml += `<div style="font-size:11px;"><span style="color:var(--text3);">${label}:</span> <span style="color:var(--accent);font-weight:700;">${a.count}</span></div>`;
+  });
+  statsHtml += '</div>';
+
+  // 简易柱状图
+  let chartHtml = '<div style="display:flex;align-items:flex-end;gap:8px;height:80px;">';
+  days.forEach((day, i) => {
+    const h = Math.max((values[i] / maxVal) * 70, 2);
+    const label = day.slice(5); // MM-DD
+    const color = values[i] > 0 ? 'var(--accent)' : 'var(--border)';
+    chartHtml += `
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div style="font-size:10px;color:var(--accent);font-weight:600;">${values[i]}</div>
+        <div style="width:100%;max-width:40px;height:${h}px;background:${color};border-radius:3px 3px 0 0;transition:height 0.3s;"></div>
+        <div style="font-size:9px;color:var(--text3);font-family:var(--mono);">${label}</div>
+      </div>`;
+  });
+  chartHtml += '</div>';
+
+  container.innerHTML = statsHtml + chartHtml;
+}
+
+async function loadLogs() {
+  try {
+    const res = await fetch(`${API_BASE}/logs?limit=100`);
+    const data = await res.json();
+    if (!data.success) return;
+
+    const container = document.getElementById('logsList');
+
+    if (data.logs.length === 0) {
+      container.innerHTML = '<div style="color:var(--text3);font-size:12px;padding:16px;">暂无操作日志</div>';
+      return;
+    }
+
+    const actionLabels = {
+      TAG_SCAN: '🏷️ 扫描', TAG_UPDATE: '✏️ 编辑', TAG_DELETE: '🗑️ 删除',
+      EXPORT: '📥 导出'
+    };
+
+    const actionColors = {
+      TAG_SCAN: 'tag-blue', TAG_UPDATE: 'tag-yellow', TAG_DELETE: 'tag-red',
+      EXPORT: 'tag-purple'
+    };
+
+    container.innerHTML = data.logs.map(log => {
+      let detail = log.detail;
+      try { detail = JSON.parse(detail); } catch(e) {}
+      let detailStr = '';
+      if (typeof detail === 'object') {
+        if (detail.epc) detailStr = `<span style="font-family:var(--mono);color:var(--accent);">${detail.epc}</span>`;
+        if (detail.action) detailStr += ` <span style="color:var(--text3);">${detail.action === 'created' ? '新增' : detail.action === 'updated' ? '更新' : detail.action}</span>`;
+        if (detail.name) detailStr += ` ${detail.name}`;
+      }
+
+      const label = actionLabels[log.action] || log.action;
+      const tagClass = actionColors[log.action] || 'tag-blue';
+      const time = new Date(log.created).toLocaleString('zh-CN', { hour12: false, month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      return `
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--border);font-size:12px;">
+          <span class="tag ${tagClass}" style="min-width:60px;text-align:center;">${label}</span>
+          <span style="flex:1;color:var(--text2);">${detailStr}</span>
+          <span style="color:var(--text3);font-family:var(--mono);font-size:10px;white-space:nowrap;">${time}</span>
+        </div>`;
+    }).join('');
+  } catch (e) {
+    console.error('加载日志失败:', e);
+  }
+}
+
+async function clearLogs() {
+  if (!confirm('确定要清空所有操作日志吗？')) return;
+  try {
+    await fetch(`${API_BASE}/logs`, { method: 'DELETE' });
+    loadSystemInfo();
+    loadLogs();
+  } catch (e) {
+    alert('清空失败');
+  }
+}
+
+// ═════════════════════════════════════════════════════
+// EXCEL EXPORT
+// ═════════════════════════════════════════════════════
+function exportAllData() {
+  // 有勾选标签时只导出选中的，没勾选时导出全部
+  if (selectedEpcs.size > 0) {
+    const selected = rfidTags.filter(t => selectedEpcs.has(t.epc));
+    const data = selected.map((t, i) => ({
+      '序号': i + 1,
+      'RFID 标签': t.epc,
+      '名称': t.name || '',
+      '类别': t.category || '',
+      '数量': t.qty ?? 1,
+      '存放位置': t.location || '',
+      '使用部门': t.department || '',
+      '使用人': t.user_name || '',
+      '入库/采购时间': t.purchase_date || '',
+      '最后扫描': t.lastScan ? formatDate(t.lastScan) : '',
+      '扫描次数': t.scanCount || 0,
+    }));
+    exportToExcel(data, '选中标签_' + selectedEpcs.size + '条_' + new Date().toISOString().split('T')[0]);
+  } else {
+    window.location.href = `${API_BASE}/tags/export`;
+  }
+}
+
+function exportToExcel(data, filename) {
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, '数据');
+  XLSX.writeFile(wb, filename + '.xlsx');
+  alert('Excel 文件已下载！');
+}
+
+async function init() {
+  console.log('🚀 RFID 标签管理系统启动中...');
+  
+  // 加载初始数据
+  await Promise.all([loadTags(), loadCategories()]);
+  
+  // 更新统计
+  updateStats();
+  
+  // 渲染仪表盘
+  renderRecentTags();
+
+  // 填充所有类别下拉框
+  fillCategoryDropdowns();
+
+  // 连接 WebSocket
+  initWebSocket();
+  
+  console.log('✅ 系统启动完成');
+}
+
+// ═════════════════════════════════════════════════════
+// WEBSOCKET 实时推送
+// ═════════════════════════════════════════════════════
+let wsConn = null;
+let wsReconnectTimer = null;
+let onlinePdas = [];  // 当前在线 PDA 列表
+
+function initWebSocket() {
+  const wsUrl = `ws://${window.location.hostname}:3000`;
+  try {
+    wsConn = new WebSocket(wsUrl);
+
+    wsConn.onopen = () => {
+      console.log('🔌 WebSocket 已连接');
+      updateWsStatus(true);
+      if (wsReconnectTimer) { clearTimeout(wsReconnectTimer); wsReconnectTimer = null; }
+    };
+
+    wsConn.onmessage = (e) => {
+      try {
+        const msg = JSON.parse(e.data);
+        handleWsMessage(msg);
+      } catch(err) {}
+    };
+
+    wsConn.onclose = () => {
+      console.log('🔌 WebSocket 断开，5秒后重连...');
+      updateWsStatus(false);
+      wsReconnectTimer = setTimeout(initWebSocket, 5000);
+    };
+
+    wsConn.onerror = () => {
+      wsConn.close();
+    };
+  } catch(e) {
+    updateWsStatus(false);
+    wsReconnectTimer = setTimeout(initWebSocket, 5000);
+  }
+}
+
+function updateWsStatus(connected) {
+  const dot = document.getElementById('wsDot');
+  const text = document.getElementById('wsStatus');
+  if (!dot || !text) return;
+  if (connected) {
+    dot.className = 'dot';
+    dot.style.background = 'var(--green)';
+    text.textContent = 'WebSocket 已连接';
+    text.style.color = 'var(--green)';
+  } else {
+    dot.className = 'dot offline';
+    dot.style.background = '';
+    text.textContent = 'WebSocket 未连接';
+    text.style.color = 'var(--text3)';
+  }
+}
+
+// 更新侧边栏在线 PDA 列表
+function updatePdaListUI() {
+  const container = document.getElementById('pdaListStatus');
+  const items = document.getElementById('pdaListItems');
+  if (!container || !items) return;
+
+  if (onlinePdas.length === 0) {
+    container.style.display = 'none';
+    return;
+  }
+  container.style.display = 'block';
+  items.innerHTML = onlinePdas.map(p => {
+    // label 优先显示，没有则显示 id
+    const name = p.label || p.id;
+    return `<div style="display:flex;align-items:center;gap:4px;"><span class="dot" style="background:var(--green);width:6px;height:6px;min-width:6px;"></span>${name}</div>`;
+  }).join('');
+}
+
+
+
+function handleWsMessage(msg) {
+  console.log('📨 WS事件:', msg.event, msg.data);
+
+  switch(msg.event) {
+    case 'tag_scanned':
+    case 'tag_updated': {
+      const tag = msg.data.tag;
+      if (!tag) break;
+      const idx = rfidTags.findIndex(t => t.epc === tag.epc);
+      if (idx >= 0) {
+        rfidTags[idx] = tag;
+      } else {
+        rfidTags.unshift(tag);
+      }
+      updateStats();
+      // 如果当前在标签管理页，刷新表格
+      const activePage = document.querySelector('.page.active');
+      if (activePage && activePage.id === 'page-tags') renderTagsTable();
+      if (activePage && activePage.id === 'page-dashboard') renderRecentTags();
+      // 如果在会话页面，刷新会话
+      if (activePage && activePage.id === 'page-session') loadSessionPage();
+      break;
+    }
+    case 'tag_deleted': {
+      const epc = msg.data.epc;
+      rfidTags = rfidTags.filter(t => t.epc !== epc);
+      updateStats();
+      const activePage = document.querySelector('.page.active');
+      if (activePage && activePage.id === 'page-tags') renderTagsTable();
+      break;
+    }
+    case 'session_started': {
+      currentSessionId = msg.data.sessionId;
+      document.getElementById('sessionBadge').style.display = '';
+      const activePage = document.querySelector('.page.active');
+      if (activePage && activePage.id === 'page-session') loadSessionPage();
+      break;
+    }
+    case 'session_stopped':
+    case 'session_cleared':
+    case 'session_committed': {
+      document.getElementById('sessionBadge').style.display = 'none';
+      const activePage = document.querySelector('.page.active');
+      if (activePage && activePage.id === 'page-session') loadSessionPage();
+      break;
+    }
+    case 'pda_list': {
+      onlinePdas = msg.data.pdas || [];
+      updatePdaListUI();
+      break;
+    }
+  }
+}
+
+// ═════════════════════════════════════════════════════
+// SCAN SESSION 扫描会话页
+// ═════════════════════════════════════════════════════
+let currentSessionId = null;
+let sessionTags = [];
+
+async function loadSessionPage() {
+  try {
+    // 获取当前活动 session
+    const activeRes = await fetch(`${API_BASE}/sessions/active`);
+    const activeData = await activeRes.json();
+    currentSessionId = activeData.sessionId;
+
+    updateSessionStatus();
+
+    if (!currentSessionId) {
+      document.getElementById('sessionTable').innerHTML =
+        '<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:32px;">暂无活动会话，等待 PDA 设备扫描…</td></tr>';
+      document.getElementById('sessTagCount').textContent = '0';
+      return;
+    }
+
+    const res = await fetch(`${API_BASE}/sessions/${currentSessionId}/tags`);
+    const data = await res.json();
+    sessionTags = data.tags || [];
+
+    renderSessionTable();
+    document.getElementById('sessLastUpdate').textContent = sessionTags.length > 0
+      ? formatDate(sessionTags[sessionTags.length - 1].scanned_at)
+      : '-';
+  } catch(e) {
+    console.error('加载会话失败:', e);
+  }
+}
+
+function updateSessionStatus() {
+  const dot = document.getElementById('sessActiveDot');
+  const text = document.getElementById('sessStatusText');
+  const idText = document.getElementById('sessIdText');
+  const saveBtn = document.getElementById('sessSaveBtn');
+  const clearBtn = document.getElementById('sessClearBtn');
+  const exportBtn = document.getElementById('sessExportBtn');
+
+  if (currentSessionId) {
+    dot.className = 'dot';
+    dot.style.background = 'var(--green)';
+    text.textContent = '会话进行中';
+    text.style.color = 'var(--green)';
+    idText.textContent = currentSessionId;
+    saveBtn.style.display = '';
+    clearBtn.style.display = '';
+    exportBtn.style.display = '';
+    document.getElementById('sessionBadge').style.display = '';
+  } else {
+    dot.className = 'dot offline';
+    dot.style.background = '';
+    text.textContent = '暂无活动会话';
+    text.style.color = 'var(--text3)';
+    idText.textContent = '';
+    saveBtn.style.display = 'none';
+    clearBtn.style.display = 'none';
+    exportBtn.style.display = 'none';
+    document.getElementById('sessionBadge').style.display = 'none';
+  }
+}
+
+function renderSessionTable() {
+  const tbody = document.getElementById('sessionTable');
+  document.getElementById('sessTagCount').textContent = sessionTags.length;
+
+  if (sessionTags.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:var(--text3);padding:32px;">会话中暂无数据，等待 PDA 扫描…</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = sessionTags.map((t, i) => `
+    <tr>
+      <td><span class="rfid-code" style="font-size:11px;">${t.epc}</span></td>
+      <td>${t.name || '<span style="color:var(--text3);">未命名</span>'}</td>
+      <td><span class="tag tag-blue">${t.category || '-'}</span></td>
+      <td style="font-family:var(--mono);">${t.qty ?? 1}</td>
+      <td>${t.location || '<span style="color:var(--text3);">未设置</span>'}</td>
+      <td>${t.department || ''}</td>
+      <td>${t.user_name || ''}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--text3);">${t.purchase_date || ''}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--text3);">${formatDate(t.scanned_at)}</td>
+      <td>
+        <button class="btn btn-primary" style="padding:3px 10px;font-size:11px;"
+          onclick="openSessionEdit('${t.epc.replace(/'/g,"\\'")}', '${currentSessionId}')">✏️ 编辑</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function refreshSession() {
+  loadSessionPage();
+}
+
+async function commitSession() {
+  if (!currentSessionId) return alert('暂无活动会话');
+  if (!confirm(`确定将当前会话 ${sessionTags.length} 条数据保存到标签库吗？\n保存后会清空会话。`)) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/sessions/${currentSessionId}/commit`, { method: 'POST' });
+    const data = await res.json();
+    if (data.success) {
+      alert(`✅ 已保存 ${data.saved} 条标签到标签库！\n文件：${data.fileName}`);
+      currentSessionId = null;
+      sessionTags = [];
+      await loadTags();
+      updateStats();
+      loadSessionPage();
+      // 刷新扫描文件列表
+    } else {
+      alert('保存失败: ' + (data.message || '未知错误'));
+    }
+  } catch(e) {
+    alert('保存失败，请检查网络连接');
+  }
+}
+
+async function clearSession() {
+  if (!currentSessionId) return;
+  if (!confirm('确定要清空当前会话数据吗？（不会保存到标签库）')) return;
+
+  try {
+    await fetch(`${API_BASE}/sessions/${currentSessionId}`, { method: 'DELETE' });
+    currentSessionId = null;
+    sessionTags = [];
+    loadSessionPage();
+  } catch(e) {
+    alert('清空失败');
+  }
+}
+
+// 导出当前会话数据到本地 Excel
+function exportSessionLocal() {
+  if (sessionTags.length === 0) return alert('会话中暂无数据');
+  const data = sessionTags.map((t, i) => ({
+    '序号': i + 1,
+    'RFID 标签': t.epc,
+    '名称': t.name || '',
+    '类别': t.category || '',
+    '数量': t.qty ?? 1,
+    '存放位置': t.location || '',
+    '使用部门': t.department || '',
+    '使用人': t.user_name || '',
+    '入库/采购时间': t.purchase_date || '',
+    '扫描时间': formatDate(t.scanned_at),
+  }));
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, '扫描数据');
+  const fname = '扫描会话_' + new Date().toISOString().replace(/[:.]/g,'').slice(0,15) + '.xlsx';
+  XLSX.writeFile(wb, fname);
+}
+
+// 打开会话标签编辑弹窗
+function openSessionEdit(epc, sessionId) {
+  const tag = sessionTags.find(t => t.epc === epc);
+  if (!tag) return;
+
+  // 确保下拉框有最新类别
+  document.getElementById('sessEditCategory').innerHTML = getCategoryOptions(tag.category || '');
+
+  document.getElementById('sessEditEpc').value = epc;
+  document.getElementById('sessEditSessionId').value = sessionId;
+  document.getElementById('sessEditEpcDisplay').textContent = epc;
+  document.getElementById('sessEditName').value = tag.name || '';
+  document.getElementById('sessEditCategory').value = tag.category || '';
+  document.getElementById('sessEditQty').value = tag.qty ?? 1;
+  document.getElementById('sessEditLocation').value = tag.location || '';
+  document.getElementById('sessEditDepartment').value = tag.department || '';
+  document.getElementById('sessEditUserName').value = tag.user_name || '';
+  document.getElementById('sessEditPurchaseDate').value = tag.purchase_date || '';
+  document.getElementById('sessionEditModal').style.display = 'flex';
+}
+
+function closeSessionEditModal() {
+  document.getElementById('sessionEditModal').style.display = 'none';
+}
+
+async function saveSessionEdit() {
+  const epc = document.getElementById('sessEditEpc').value;
+  const sid = document.getElementById('sessEditSessionId').value;
+  const name = document.getElementById('sessEditName').value;
+  const category = document.getElementById('sessEditCategory').value;
+  const qty = parseInt(document.getElementById('sessEditQty').value) || 1;
+  const location = document.getElementById('sessEditLocation').value;
+  const department = document.getElementById('sessEditDepartment').value;
+  const user_name = document.getElementById('sessEditUserName').value;
+  const purchase_date = document.getElementById('sessEditPurchaseDate').value;
+
+  try {
+    const res = await fetch(`${API_BASE}/sessions/${sid}/tags/${encodeURIComponent(epc)}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, category, qty, location, department, user_name, ...(purchase_date ? { purchase_date } : {}) })
+    });
+    const data = await res.json();
+    if (data.success) {
+      // 更新本地缓存
+      const idx = sessionTags.findIndex(t => t.epc === epc);
+      if (idx >= 0) sessionTags[idx] = { ...sessionTags[idx], name, category, qty, location, department, user_name, ...(purchase_date ? { purchase_date } : {}) };
+      renderSessionTable();
+      closeSessionEditModal();
+    } else {
+      alert('保存失败');
+    }
+  } catch(e) {
+    alert('保存失败，请检查网络');
+  }
+}
+
+// ═════════════════════════════════════════════════════
+// SCAN FILES 历史扫描文件
+// ═════════════════════════════════════════════════════
+async function loadScanFiles() {
+  const container = document.getElementById('scanFilesList');
+  if (!container) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/sessions/files`);
+    const data = await res.json();
+    const allFiles = data.files || [];
+
+    if (allFiles.length === 0) {
+      container.innerHTML = '<div style="color:var(--text3);font-size:12px;padding:24px;text-align:center;">暂无扫描文件，保存会话后会自动生成</div>';
+      document.getElementById('scanfilesPagination').innerHTML = '';
+      return;
+    }
+
+    const pg = paginate(allFiles, 'scanfiles');
+    container.innerHTML = `
+      <table style="width:100%;">
+        <thead><tr>
+          <th>文件名</th>
+          <th>大小</th>
+          <th>生成时间</th>
+          <th>操作</th>
+        </tr></thead>
+        <tbody>
+          ${pg.data.map(f => `
+            <tr>
+              <td style="font-family:var(--mono);font-size:12px;">${f.name}</td>
+              <td style="font-family:var(--mono);font-size:12px;color:var(--text3);">${(f.size / 1024).toFixed(1)} KB</td>
+              <td style="font-family:var(--mono);font-size:11px;color:var(--text3);">${formatDate(f.created)}</td>
+              <td><a href="${API_BASE}/sessions/files/${encodeURIComponent(f.name)}" class="btn btn-outline" style="padding:3px 12px;font-size:11px;text-decoration:none;" download>📥 下载</a></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>`;
+    document.getElementById('scanfilesPagination').innerHTML = renderPagination('scanfiles', pg);
+  } catch(e) {
+    container.innerHTML = '<div style="color:var(--red);font-size:12px;padding:24px;">加载失败，请刷新重试</div>';
+  }
+}
+
+// ═════════════════════════════════════════════════════
+// CATEGORIES 类别管理
+// ═════════════════════════════════════════════════════
+async function loadCategoriesData() {
+  try {
+    const res = await fetch(`${API_BASE}/categories`);
+    const data = await res.json();
+    allCategories = data.categories || [];
+  } catch(e) {
+    allCategories = [];
+  }
+}
+
+// loadCategories 是 init 和 refreshPage 的入口
+async function loadCategories() {
+  await loadCategoriesData();
+  loadCategoriesPage();
+}
+
+function getCategoryOptions(selected, includeEmpty) {
+  let html = '';
+  if (includeEmpty !== false) html += '<option value="">请选择</option>';
+  allCategories.forEach(c => {
+    const sel = (c.name === selected) ? ' selected' : '';
+    html += `<option value="${c.name}"${sel}>${c.name}</option>`;
+  });
+  return html;
+}
+
+function fillCategoryDropdowns() {
+  // 标签管理筛选
+  const cf = document.getElementById('categoryFilter');
+  if (cf) {
+    let html = '<option value="">全部类别</option>';
+    allCategories.forEach(c => html += `<option value="${c.name}">${c.name}</option>`);
+    cf.innerHTML = html;
+  }
+  // 库存管理筛选
+  const icf = document.getElementById('invCategoryFilter');
+  if (icf) {
+    let html = '<option value="">全部类别</option>';
+    allCategories.forEach(c => html += `<option value="${c.name}">${c.name}</option>`);
+    icf.innerHTML = html;
+  }
+  // 编辑标签弹窗
+  const ec = document.getElementById('editCategory');
+  if (ec) ec.innerHTML = getCategoryOptions('', false);
+  // 会话编辑弹窗
+  const sec = document.getElementById('sessEditCategory');
+  if (sec) sec.innerHTML = getCategoryOptions('');
+}
+
+function loadCategoriesPage() {
+  const tbody = document.getElementById('categoriesTable');
+  if (!tbody) return;
+
+  const catCountMap = {};
+  rfidTags.forEach(t => {
+    if (t.category) {
+      catCountMap[t.category] = (catCountMap[t.category] || 0) + 1;
+    }
+  });
+
+  if (allCategories.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text3);padding:24px;">暂无类别数据</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = allCategories.map((c, i) => `
+    <tr>
+      <td style="text-align:center;color:var(--text3);">${i + 1}</td>
+      <td><span class="tag tag-blue">${c.name}</span></td>
+      <td style="font-family:var(--mono);color:var(--accent);font-weight:700;">${catCountMap[c.name] || 0}</td>
+      <td style="font-family:var(--mono);font-size:11px;color:var(--text3);">${formatDate(c.created)}</td>
+      <td style="display:flex;gap:6px;">
+        <button class="btn btn-primary" style="padding:3px 10px;font-size:11px;" onclick="editCategory(${c.id}, '${c.name.replace(/'/g, "\\'")}')">✏️</button>
+        <button class="btn btn-danger" style="padding:3px 10px;font-size:11px;" onclick="deleteCategory(${c.id}, '${c.name.replace(/'/g, "\\'")}')">🗑️</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function addCategory() {
+  const input = document.getElementById('newCatName');
+  const name = input.value.trim();
+  if (!name) return alert('请输入类别名称');
+
+  const res = await fetch(`${API_BASE}/categories`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name })
+  });
+  const data = await res.json();
+  if (data.success) {
+    input.value = '';
+    await loadCategoriesData();
+    loadCategoriesPage();
+    fillCategoryDropdowns();
+  } else {
+    alert(data.message || '添加失败');
+  }
+}
+
+async function editCategory(id, oldName) {
+  const newName = prompt('修改类别名称：', oldName);
+  if (!newName || newName.trim() === oldName) return;
+
+  const res = await fetch(`${API_BASE}/categories/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: newName.trim() })
+  });
+  const data = await res.json();
+  if (data.success) {
+    alert('类别已修改，已同步更新所有标签');
+    await loadTags();
+    await loadCategoriesData();
+    loadCategoriesPage();
+    fillCategoryDropdowns();
+  } else {
+    alert(data.message || '修改失败');
+  }
+}
+
+async function deleteCategory(id, name) {
+  if (!confirm(`确定删除类别「${name}」吗？\n该类别下的标签将被改为"未分类"`)) return;
+
+  const res = await fetch(`${API_BASE}/categories/${id}`, { method: 'DELETE' });
+  const data = await res.json();
+  if (data.success) {
+    await loadTags();
+    await loadCategoriesData();
+    loadCategoriesPage();
+    fillCategoryDropdowns();
+  } else {
+    alert(data.message || '删除失败');
+  }
+}
+
+// 刷新所有下拉框中的类别选项
+function refreshAllCategoryDropdowns() {
+  const selected = '';
+  const html = getCategoryOptions(selected);
+  document.querySelectorAll('select[id*="Category"], select[id*="category"], select[name*="category"]').forEach(sel => {
+    const currentVal = sel.value;
+    sel.innerHTML = getCategoryOptions(currentVal);
+  });
+}
+
+// ═════════════════════════════════════════════════════
+// 芯片读写功能已移除（v3.17），所有数据仅存数据库
+// ═════════════════════════════════════════════════════
+
+// 启动系统
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RFID WMS</string>
+    <string name="connect">连接</string>
+    <string name="start_scan">启动扫描</string>
+    <string name="stop_scan">停止扫描</string>
+    <string name="scan_count">扫描次数</string>
+    <string name="last_scan">最后扫描</string>
+    <string name="device_connected">设备已连接</string>
+    <string name="device_disconnected">设备未连接</string>
+    <string name="scan_in_progress">正在扫描...</string>
+    <string name="scan_stopped">扫描已停止</string>
+    <string name="upload_success">上传成功</string>
+    <string name="upload_failed">上传失败</string>
+</resources>

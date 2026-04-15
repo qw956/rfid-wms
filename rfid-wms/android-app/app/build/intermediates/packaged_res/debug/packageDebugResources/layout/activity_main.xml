@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0A0E1A">
+
+    <!-- 顶部状态栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="#111827">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📦 RFID WMS"
+            android:textSize="16sp"
+            android:textColor="#38BDF8"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvSyncStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="检测中..."
+            android:textSize="10sp"
+            android:textColor="#94A3B8"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:layout_marginEnd="6dp"
+            android:background="#1E293B"/>
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未连接"
+            android:textSize="11sp"
+            android:textColor="#94A3B8"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="#1E293B"/>
+
+    </LinearLayout>
+
+    <!-- 服务器配置 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp">
+
+        <EditText
+            android:id="@+id/etServerUrl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="服务器地址"
+            android:text="http://192.168.1.55:3000/api"
+            android:textColor="#E2E8F0"
+            android:textColorHint="#64748B"
+            android:background="#1E293B"
+            android:padding="10dp"
+            android:textSize="12sp"
+            android:layout_marginEnd="6dp"
+            android:singleLine="true"/>
+
+        <Button
+            android:id="@+id/btnConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连接"
+            android:textColor="#FFFFFF"
+            android:background="#0EA5E9"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="13sp"/>
+
+
+    </LinearLayout>
+
+    <!-- 扫描统计卡片 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="#111827"
+            android:padding="10dp"
+            android:layout_marginEnd="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已读标签"
+                android:textSize="10sp"
+                android:textColor="#64748B"/>
+            <TextView
+                android:id="@+id/tvScanCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="22sp"
+                android:textColor="#34D399"
+                android:textStyle="bold"
+                android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="#111827"
+            android:padding="10dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="离线缓存"
+                android:textSize="10sp"
+                android:textColor="#64748B"/>
+            <TextView
+                android:id="@+id/tvOfflineCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="22sp"
+                android:textColor="#FBBF24"
+                android:textStyle="bold"
+                android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:background="#111827"
+            android:padding="10dp"
+            android:layout_marginStart="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最后扫描"
+                android:textSize="10sp"
+                android:textColor="#64748B"/>
+            <TextView
+                android:id="@+id/tvLastScan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="暂无"
+                android:textSize="11sp"
+                android:textColor="#38BDF8"
+                android:fontFamily="monospace"
+                android:singleLine="true"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- 操作按钮行 1：扫描控制 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="2dp">
+
+        <Button
+            android:id="@+id/btnScan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📡 启动扫描"
+            android:textColor="#FFFFFF"
+            android:background="#34D399"
+            android:padding="12dp"
+            android:textSize="13sp"
+            android:layout_marginEnd="4dp"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/btnStop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⏹ 停止"
+            android:textColor="#FFFFFF"
+            android:background="#F87171"
+            android:padding="12dp"
+            android:textSize="13sp"
+            android:layout_marginStart="4dp"
+            android:enabled="false"/>
+
+    </LinearLayout>
+
+    <!-- 操作按钮行 2：同步/导出/清空 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="4dp">
+
+        <Button
+            android:id="@+id/btnSyncNow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="☁️ 同步"
+            android:textColor="#FFFFFF"
+            android:background="#0EA5E9"
+            android:padding="10dp"
+            android:textSize="12sp"
+            android:layout_marginEnd="4dp"/>
+
+        <Button
+            android:id="@+id/btnExport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📥 导出"
+            android:textColor="#FFFFFF"
+            android:background="#A78BFA"
+            android:padding="10dp"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"/>
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🗑️ 清空"
+            android:textColor="#E2E8F0"
+            android:background="#1E293B"
+            android:padding="10dp"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"/>
+
+    </LinearLayout>
+
+    <!-- 标签列表标题 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#0F1628"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🏷️ 已扫描标签（点击查看详情/编辑）"
+            android:textSize="11sp"
+            android:textColor="#64748B"/>
+
+        <TextView
+            android:id="@+id/tvListCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 条"
+            android:textSize="11sp"
+            android:textColor="#38BDF8"
+            android:fontFamily="monospace"/>
+
+    </LinearLayout>
+
+    <!-- 标签列表 -->
+    <ListView
+        android:id="@+id/lvTags"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#0A0E1A"
+        android:divider="#1E293B"
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical"/>
+
+</LinearLayout>

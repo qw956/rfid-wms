@@ -1,0 +1,3 @@
+/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/.cxx/Debug/5g1s1q2a/armeabi-v7a/CMakeFiles/ModuleAPI.dir
+/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/.cxx/Debug/5g1s1q2a/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/.cxx/Debug/5g1s1q2a/armeabi-v7a/CMakeFiles/rebuild_cache.dir

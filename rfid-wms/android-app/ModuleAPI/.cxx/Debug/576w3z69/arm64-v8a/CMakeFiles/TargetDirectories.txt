@@ -1,0 +1,3 @@
+/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/Debug/576w3z69/arm64-v8a/CMakeFiles/ModuleAPI.dir
+/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/Debug/576w3z69/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/Debug/576w3z69/arm64-v8a/CMakeFiles/rebuild_cache.dir

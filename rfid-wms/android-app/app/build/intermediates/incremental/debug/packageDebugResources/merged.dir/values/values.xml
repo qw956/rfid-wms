@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_primary">#38BDF8</color>
+    <color name="accent_secondary">#0EA5E9</color>
+    <color name="bg_card">#111827</color>
+    <color name="bg_input">#1E293B</color>
+    <color name="bg_primary">#0A0E1A</color>
+    <color name="bg_secondary">#0F1628</color>
+    <color name="black">#FF000000</color>
+    <color name="danger">#F87171</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="success">#34D399</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="text_hint">#64748B</color>
+    <color name="text_primary">#E2E8F0</color>
+    <color name="text_secondary">#94A3B8</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">RFID WMS</string>
+    <string name="connect">连接</string>
+    <string name="device_connected">设备已连接</string>
+    <string name="device_disconnected">设备未连接</string>
+    <string name="last_scan">最后扫描</string>
+    <string name="scan_count">扫描次数</string>
+    <string name="scan_in_progress">正在扫描...</string>
+    <string name="scan_stopped">扫描已停止</string>
+    <string name="start_scan">启动扫描</string>
+    <string name="stop_scan">停止扫描</string>
+    <string name="upload_failed">上传失败</string>
+    <string name="upload_success">上传成功</string>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        
+        <item name="colorPrimary">@color/accent_secondary</item>
+        <item name="colorPrimaryDark">@color/bg_primary</item>
+        <item name="colorAccent">@color/accent_primary</item>
+        <item name="android:windowBackground">@color/bg_primary</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+</resources>

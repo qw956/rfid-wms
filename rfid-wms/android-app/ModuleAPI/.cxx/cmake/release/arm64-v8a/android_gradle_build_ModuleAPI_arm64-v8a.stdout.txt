@@ -1,0 +1,12 @@
+ninja: Entering directory `D:\AndroidAppCodeGitee\HCUHF\ModuleAPI\.cxx\cmake\release\arm64-v8a'
+[1/4] Building C object CMakeFiles/ModuleAPI.dir/src/SerialPort.c.o
+[2/4] Building C object CMakeFiles/ModuleAPI.dir/src/ModuleAPI.c.o
+D:/AndroidAppCodeGitee/HCUHF/ModuleAPI/src/main/jni/src/ModuleAPI.c:113:29: warning: passing 'jbyte *' (aka 'signed char *') to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    uint16_t result=CalcCRC(jpszData,data_len);
+                            ^~~~~~~~
+D:/AndroidAppCodeGitee/HCUHF/ModuleAPI/src/main/jni/src/ModuleAPI.c:62:23: note: passing argument to parameter 'msgbuf' here
+uint16 CalcCRC(uint8 *msgbuf, uint8 msglen) {
+                      ^
+1 warning generated.
+[3/4] Building C object CMakeFiles/ModuleAPI.dir/src/Logger.c.o
+[4/4] Linking C shared library D:\AndroidAppCodeGitee\HCUHF\ModuleAPI\src\main\jniLibs\arm64-v8a\libModuleAPI.so

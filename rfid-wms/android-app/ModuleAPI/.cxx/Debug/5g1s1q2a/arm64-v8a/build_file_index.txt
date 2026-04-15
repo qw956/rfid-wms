@@ -1,0 +1,1 @@
+/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/CMakeLists.txt

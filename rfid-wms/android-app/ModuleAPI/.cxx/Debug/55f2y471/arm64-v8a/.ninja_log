@@ -1,0 +1,5 @@
+# ninja log v5
+0	197	1775632004395720176	CMakeFiles/ModuleAPI.dir/src/Logger.c.o	1e6a92b424c12eef
+0	198	1775632004397798349	CMakeFiles/ModuleAPI.dir/src/ModuleAPI.c.o	b34e4e985005680e
+1	230	1775632004428962357	CMakeFiles/ModuleAPI.dir/src/SerialPort.c.o	32c5375919d282bc
+230	326	1775632004524336594	/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jniLibs/arm64-v8a/libModuleAPI.so	b44c9bd243e838ea

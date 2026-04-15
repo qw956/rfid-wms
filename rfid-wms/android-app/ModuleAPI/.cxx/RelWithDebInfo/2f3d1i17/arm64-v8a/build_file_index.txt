@@ -1,0 +1,1 @@
+/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/CMakeLists.txt

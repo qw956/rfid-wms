@@ -1,0 +1,337 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:2:1-41:12
+INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:2:1-41:12
+INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:2:1-41:12
+INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:2:1-41:12
+MERGED from [:ModuleAPI] /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.material:material:1.11.0] /Users/pky/.gradle/caches/transforms-4/5376e9c201ad14cca26ee96c4708d61d/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/pky/.gradle/caches/transforms-4/994b86cf129eb20a2d5ad22d8d55ab21/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/pky/.gradle/caches/transforms-4/f4188994c91d5b2ec999d320b048c2f7/transformed/jetified-appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/pky/.gradle/caches/transforms-4/6d626afa15cd18e7b219167e4781b910/transformed/appcompat-1.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/pky/.gradle/caches/transforms-4/484ffe5dbaf4dbb629712c789f1874c5/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/pky/.gradle/caches/transforms-4/513398808aec3dc0920cdce2e6be92db/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.8.0] /Users/pky/.gradle/caches/transforms-4/f5bc374d0fcd7c0f83e54d9f3d491d61/transformed/jetified-activity-1.8.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/pky/.gradle/caches/transforms-4/8817012084419fed1d5a9995e1d4ee28/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/pky/.gradle/caches/transforms-4/990de210fd94093d0da47eb7906b0d6b/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/pky/.gradle/caches/transforms-4/7677d2c2c0c2e40a6fb55972d4b327cc/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/pky/.gradle/caches/transforms-4/43c77efb5e640faccce8452f8267fe6b/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.2.0] /Users/pky/.gradle/caches/transforms-4/93b8ba30003152fcf965a9ba2ca3336f/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/pky/.gradle/caches/transforms-4/f240c85d244082fd71f3d773e35b6225/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/pky/.gradle/caches/transforms-4/4c062de0f45bd190c4496a6bad6076c5/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/pky/.gradle/caches/transforms-4/25283fca3956ea07926d11a0816ed829/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/pky/.gradle/caches/transforms-4/d6fc087d96991cb01d9c9972186d8526/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/pky/.gradle/caches/transforms-4/158a2704e1f903ce78d80dc72f79048b/transformed/jetified-savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] /Users/pky/.gradle/caches/transforms-4/aeb45c9cb510a98f7ee0ff24b52b8408/transformed/lifecycle-livedata-core-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] /Users/pky/.gradle/caches/transforms-4/7f3891e4b497c189e450898850aa7d36/transformed/lifecycle-livedata-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] /Users/pky/.gradle/caches/transforms-4/10869a3c11edec9f900acf2ad742a41e/transformed/lifecycle-viewmodel-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] /Users/pky/.gradle/caches/transforms-4/3be68047e55a435077a97dde7b641025/transformed/lifecycle-runtime-2.6.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] /Users/pky/.gradle/caches/transforms-4/ad3c70109bd79cde2224231d5f168fb4/transformed/jetified-lifecycle-viewmodel-savedstate-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.9.0] /Users/pky/.gradle/caches/transforms-4/3be5dbdeb407aa65bb0735ab01599e1b/transformed/jetified-core-ktx-1.9.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/pky/.gradle/caches/transforms-4/ab14b00f51c1c5d731e12c0408e7e067/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/pky/.gradle/caches/transforms-4/6e764cfdecff343c398be7152f84a1d3/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.1.0] /Users/pky/.gradle/caches/transforms-4/a6790434b66b6ff3ed8f51a945c20716/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/pky/.gradle/caches/transforms-4/2bad578bc35bc2c0b18b6ffb52fb2c49/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/pky/.gradle/caches/transforms-4/f683fdf1ffc02da6226e2e5f2c307e05/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pky/.gradle/caches/transforms-4/bfd6b9e2c8dc8be3a1e7aede61137367/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pky/.gradle/caches/transforms-4/03b5517ef708f9d329953a265a5e37ec/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/pky/.gradle/caches/transforms-4/9e5dc015f0d68a6c2288ec8e085f7e03/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/pky/.gradle/caches/transforms-4/aed3d8b5c920eae2953dec896862014d/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/pky/.gradle/caches/transforms-4/d9b5ba14241b4aca82a2eae00be1fa08/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/pky/.gradle/caches/transforms-4/f87f3b330f12aca4c5889d67909cc339/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/pky/.gradle/caches/transforms-4/5a12981144dd9f67c63d690367c5cd99/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/pky/.gradle/caches/transforms-4/aa922c2463424c780a290ed3acd3e85c/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/pky/.gradle/caches/transforms-4/03f59cf834c9609961ea075cd85d99b6/transformed/jetified-annotation-experimental-1.3.0/AndroidManifest.xml:17:1-22:12
+	package
+		INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:5:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:6:5-79
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:6:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:7:5-76
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:7:22-73
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:8:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:9:5-80
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:9:22-77
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:10:22-78
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:11:5-68
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:11:22-65
+application
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:13:5-39:19
+INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:13:5-39:19
+MERGED from [com.google.android.material:material:1.11.0] /Users/pky/.gradle/caches/transforms-4/5376e9c201ad14cca26ee96c4708d61d/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.11.0] /Users/pky/.gradle/caches/transforms-4/5376e9c201ad14cca26ee96c4708d61d/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/pky/.gradle/caches/transforms-4/994b86cf129eb20a2d5ad22d8d55ab21/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/pky/.gradle/caches/transforms-4/994b86cf129eb20a2d5ad22d8d55ab21/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
+MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pky/.gradle/caches/transforms-4/bfd6b9e2c8dc8be3a1e7aede61137367/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pky/.gradle/caches/transforms-4/bfd6b9e2c8dc8be3a1e7aede61137367/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pky/.gradle/caches/transforms-4/03b5517ef708f9d329953a265a5e37ec/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pky/.gradle/caches/transforms-4/03b5517ef708f9d329953a265a5e37ec/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+	android:extractNativeLibs
+		INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:18:9-35
+	android:label
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:16:9-34
+	android:roundIcon
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:17:9-54
+	tools:targetApi
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:21:9-29
+	android:icon
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:15:9-43
+	android:allowBackup
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:14:9-35
+	android:theme
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:19:9-67
+	android:usesCleartextTraffic
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:20:9-44
+activity#com.rfidwms.MainActivity
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:23:9-30:20
+	android:exported
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:25:13-36
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:24:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:26:13-29:29
+action#android.intent.action.MAIN
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:27:17-69
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:27:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:28:17-77
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:28:27-74
+receiver#com.rfidwms.BootReceiver
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:31:9-38:20
+	android:enabled
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:33:13-35
+	android:exported
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:34:13-36
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:32:13-41
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:35:13-37:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:36:17-79
+	android:name
+		ADDED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:36:25-76
+uses-sdk
+INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml
+INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml
+MERGED from [:ModuleAPI] /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
+MERGED from [:ModuleAPI] /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.material:material:1.11.0] /Users/pky/.gradle/caches/transforms-4/5376e9c201ad14cca26ee96c4708d61d/transformed/material-1.11.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.11.0] /Users/pky/.gradle/caches/transforms-4/5376e9c201ad14cca26ee96c4708d61d/transformed/material-1.11.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/pky/.gradle/caches/transforms-4/994b86cf129eb20a2d5ad22d8d55ab21/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/pky/.gradle/caches/transforms-4/994b86cf129eb20a2d5ad22d8d55ab21/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/pky/.gradle/caches/transforms-4/f4188994c91d5b2ec999d320b048c2f7/transformed/jetified-appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/pky/.gradle/caches/transforms-4/f4188994c91d5b2ec999d320b048c2f7/transformed/jetified-appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/pky/.gradle/caches/transforms-4/6d626afa15cd18e7b219167e4781b910/transformed/appcompat-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/pky/.gradle/caches/transforms-4/6d626afa15cd18e7b219167e4781b910/transformed/appcompat-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/pky/.gradle/caches/transforms-4/484ffe5dbaf4dbb629712c789f1874c5/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/pky/.gradle/caches/transforms-4/484ffe5dbaf4dbb629712c789f1874c5/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/pky/.gradle/caches/transforms-4/513398808aec3dc0920cdce2e6be92db/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/pky/.gradle/caches/transforms-4/513398808aec3dc0920cdce2e6be92db/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.8.0] /Users/pky/.gradle/caches/transforms-4/f5bc374d0fcd7c0f83e54d9f3d491d61/transformed/jetified-activity-1.8.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.0] /Users/pky/.gradle/caches/transforms-4/f5bc374d0fcd7c0f83e54d9f3d491d61/transformed/jetified-activity-1.8.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/pky/.gradle/caches/transforms-4/8817012084419fed1d5a9995e1d4ee28/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/pky/.gradle/caches/transforms-4/8817012084419fed1d5a9995e1d4ee28/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/pky/.gradle/caches/transforms-4/990de210fd94093d0da47eb7906b0d6b/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/pky/.gradle/caches/transforms-4/990de210fd94093d0da47eb7906b0d6b/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/pky/.gradle/caches/transforms-4/7677d2c2c0c2e40a6fb55972d4b327cc/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/pky/.gradle/caches/transforms-4/7677d2c2c0c2e40a6fb55972d4b327cc/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/pky/.gradle/caches/transforms-4/43c77efb5e640faccce8452f8267fe6b/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/pky/.gradle/caches/transforms-4/43c77efb5e640faccce8452f8267fe6b/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.2.0] /Users/pky/.gradle/caches/transforms-4/93b8ba30003152fcf965a9ba2ca3336f/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/pky/.gradle/caches/transforms-4/93b8ba30003152fcf965a9ba2ca3336f/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/pky/.gradle/caches/transforms-4/f240c85d244082fd71f3d773e35b6225/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/pky/.gradle/caches/transforms-4/f240c85d244082fd71f3d773e35b6225/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/pky/.gradle/caches/transforms-4/4c062de0f45bd190c4496a6bad6076c5/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/pky/.gradle/caches/transforms-4/4c062de0f45bd190c4496a6bad6076c5/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/pky/.gradle/caches/transforms-4/25283fca3956ea07926d11a0816ed829/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/pky/.gradle/caches/transforms-4/25283fca3956ea07926d11a0816ed829/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/pky/.gradle/caches/transforms-4/d6fc087d96991cb01d9c9972186d8526/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/pky/.gradle/caches/transforms-4/d6fc087d96991cb01d9c9972186d8526/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/pky/.gradle/caches/transforms-4/158a2704e1f903ce78d80dc72f79048b/transformed/jetified-savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/pky/.gradle/caches/transforms-4/158a2704e1f903ce78d80dc72f79048b/transformed/jetified-savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] /Users/pky/.gradle/caches/transforms-4/aeb45c9cb510a98f7ee0ff24b52b8408/transformed/lifecycle-livedata-core-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] /Users/pky/.gradle/caches/transforms-4/aeb45c9cb510a98f7ee0ff24b52b8408/transformed/lifecycle-livedata-core-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] /Users/pky/.gradle/caches/transforms-4/7f3891e4b497c189e450898850aa7d36/transformed/lifecycle-livedata-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] /Users/pky/.gradle/caches/transforms-4/7f3891e4b497c189e450898850aa7d36/transformed/lifecycle-livedata-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] /Users/pky/.gradle/caches/transforms-4/10869a3c11edec9f900acf2ad742a41e/transformed/lifecycle-viewmodel-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] /Users/pky/.gradle/caches/transforms-4/10869a3c11edec9f900acf2ad742a41e/transformed/lifecycle-viewmodel-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] /Users/pky/.gradle/caches/transforms-4/3be68047e55a435077a97dde7b641025/transformed/lifecycle-runtime-2.6.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] /Users/pky/.gradle/caches/transforms-4/3be68047e55a435077a97dde7b641025/transformed/lifecycle-runtime-2.6.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] /Users/pky/.gradle/caches/transforms-4/ad3c70109bd79cde2224231d5f168fb4/transformed/jetified-lifecycle-viewmodel-savedstate-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] /Users/pky/.gradle/caches/transforms-4/ad3c70109bd79cde2224231d5f168fb4/transformed/jetified-lifecycle-viewmodel-savedstate-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.9.0] /Users/pky/.gradle/caches/transforms-4/3be5dbdeb407aa65bb0735ab01599e1b/transformed/jetified-core-ktx-1.9.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.9.0] /Users/pky/.gradle/caches/transforms-4/3be5dbdeb407aa65bb0735ab01599e1b/transformed/jetified-core-ktx-1.9.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/pky/.gradle/caches/transforms-4/ab14b00f51c1c5d731e12c0408e7e067/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/pky/.gradle/caches/transforms-4/ab14b00f51c1c5d731e12c0408e7e067/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/pky/.gradle/caches/transforms-4/6e764cfdecff343c398be7152f84a1d3/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/pky/.gradle/caches/transforms-4/6e764cfdecff343c398be7152f84a1d3/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /Users/pky/.gradle/caches/transforms-4/a6790434b66b6ff3ed8f51a945c20716/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /Users/pky/.gradle/caches/transforms-4/a6790434b66b6ff3ed8f51a945c20716/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/pky/.gradle/caches/transforms-4/2bad578bc35bc2c0b18b6ffb52fb2c49/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/pky/.gradle/caches/transforms-4/2bad578bc35bc2c0b18b6ffb52fb2c49/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/pky/.gradle/caches/transforms-4/f683fdf1ffc02da6226e2e5f2c307e05/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/pky/.gradle/caches/transforms-4/f683fdf1ffc02da6226e2e5f2c307e05/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pky/.gradle/caches/transforms-4/bfd6b9e2c8dc8be3a1e7aede61137367/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pky/.gradle/caches/transforms-4/bfd6b9e2c8dc8be3a1e7aede61137367/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pky/.gradle/caches/transforms-4/03b5517ef708f9d329953a265a5e37ec/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pky/.gradle/caches/transforms-4/03b5517ef708f9d329953a265a5e37ec/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/pky/.gradle/caches/transforms-4/9e5dc015f0d68a6c2288ec8e085f7e03/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/pky/.gradle/caches/transforms-4/9e5dc015f0d68a6c2288ec8e085f7e03/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/pky/.gradle/caches/transforms-4/aed3d8b5c920eae2953dec896862014d/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/pky/.gradle/caches/transforms-4/aed3d8b5c920eae2953dec896862014d/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/pky/.gradle/caches/transforms-4/d9b5ba14241b4aca82a2eae00be1fa08/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/pky/.gradle/caches/transforms-4/d9b5ba14241b4aca82a2eae00be1fa08/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/pky/.gradle/caches/transforms-4/f87f3b330f12aca4c5889d67909cc339/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/pky/.gradle/caches/transforms-4/f87f3b330f12aca4c5889d67909cc339/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/pky/.gradle/caches/transforms-4/5a12981144dd9f67c63d690367c5cd99/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/pky/.gradle/caches/transforms-4/5a12981144dd9f67c63d690367c5cd99/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/pky/.gradle/caches/transforms-4/aa922c2463424c780a290ed3acd3e85c/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/pky/.gradle/caches/transforms-4/aa922c2463424c780a290ed3acd3e85c/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/pky/.gradle/caches/transforms-4/03f59cf834c9609961ea075cd85d99b6/transformed/jetified-annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/pky/.gradle/caches/transforms-4/03f59cf834c9609961ea075cd85d99b6/transformed/jetified-annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
+	android:targetSdkVersion
+		INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pky/.gradle/caches/transforms-4/03b5517ef708f9d329953a265a5e37ec/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pky/.gradle/caches/transforms-4/03b5517ef708f9d329953a265a5e37ec/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+permission#com.rfidwms.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+uses-permission#com.rfidwms.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92

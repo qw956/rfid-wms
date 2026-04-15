@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/RelWithDebInfo/2f3d1i17/armeabi-v7a",
+  "command": "/Users/r2/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --sysroot=/Users/r2/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DModuleAPI_EXPORTS -I/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/inc -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O2 -g -DNDEBUG -fPIC -o CMakeFiles/ModuleAPI.dir/src/Logger.c.o -c /Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/src/Logger.c",
+  "file": "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/src/Logger.c"
+},
+{
+  "directory": "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/RelWithDebInfo/2f3d1i17/armeabi-v7a",
+  "command": "/Users/r2/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --sysroot=/Users/r2/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DModuleAPI_EXPORTS -I/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/inc -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O2 -g -DNDEBUG -fPIC -o CMakeFiles/ModuleAPI.dir/src/ModuleAPI.c.o -c /Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/src/ModuleAPI.c",
+  "file": "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/src/ModuleAPI.c"
+},
+{
+  "directory": "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/RelWithDebInfo/2f3d1i17/armeabi-v7a",
+  "command": "/Users/r2/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi21 --sysroot=/Users/r2/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DModuleAPI_EXPORTS -I/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/inc -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -O2 -g -DNDEBUG -fPIC -o CMakeFiles/ModuleAPI.dir/src/SerialPort.c.o -c /Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/src/SerialPort.c",
+  "file": "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/src/SerialPort.c"
+}
+]

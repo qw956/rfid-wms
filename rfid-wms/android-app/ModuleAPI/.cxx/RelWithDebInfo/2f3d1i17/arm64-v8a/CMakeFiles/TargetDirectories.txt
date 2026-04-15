@@ -1,0 +1,3 @@
+/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/RelWithDebInfo/2f3d1i17/arm64-v8a/CMakeFiles/ModuleAPI.dir
+/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/RelWithDebInfo/2f3d1i17/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/RelWithDebInfo/2f3d1i17/arm64-v8a/CMakeFiles/rebuild_cache.dir

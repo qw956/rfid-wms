@@ -1,0 +1,1 @@
+/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/build/intermediates/cxx/Debug/576w3z69/obj/arm64-v8a

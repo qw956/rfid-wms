@@ -1,0 +1,10 @@
+# ninja log v5
+0	36	1751505082831048476	CMakeFiles/ModuleAPI.dir/src/Logger.c.o	64ff0acf424e8d71
+0	39	1751505082834742853	CMakeFiles/ModuleAPI.dir/src/ModuleAPI.c.o	314e7efadc400dd1
+0	43	1751505082838570439	CMakeFiles/ModuleAPI.dir/src/SerialPort.c.o	23ee1c96c8e00ee3
+43	101	1751505082894159554	/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jniLibs/armeabi-v7a/libModuleAPI.so	52f633dd54dd1ea2
+0	8	0	clean	615626a8267b3b9a
+0	141	1752114518762269195	CMakeFiles/ModuleAPI.dir/src/Logger.c.o	64ff0acf424e8d71
+0	142	1752114518764493362	CMakeFiles/ModuleAPI.dir/src/ModuleAPI.c.o	314e7efadc400dd1
+0	142	1752114518764545320	CMakeFiles/ModuleAPI.dir/src/SerialPort.c.o	23ee1c96c8e00ee3
+142	1039	1752114519659968359	/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jniLibs/armeabi-v7a/libModuleAPI.so	52f633dd54dd1ea2

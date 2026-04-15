@@ -1,0 +1,165 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.rfidwms"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:5:5-67
+11-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:6:5-79
+12-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:6:22-76
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+13-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:7:5-76
+13-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:7:22-73
+14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+14-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:8:5-81
+14-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:8:22-78
+15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+15-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:9:5-80
+15-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:9:22-77
+16    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+16-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:10:5-81
+16-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:10:22-78
+17    <uses-permission android:name="android.permission.WAKE_LOCK" />
+17-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:11:5-68
+17-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:11:22-65
+18
+19    <permission
+19-->[androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+20        android:name="com.rfidwms.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+20-->[androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+21        android:protectionLevel="signature" />
+21-->[androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+22
+23    <uses-permission android:name="com.rfidwms.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+23-->[androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+23-->[androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+24
+25    <application
+25-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:13:5-39:19
+26        android:allowBackup="true"
+26-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:14:9-35
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.9.0] /Users/pky/.gradle/caches/transforms-4/cd33e52ad770fb17f50cc5047cad55d4/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+28        android:debuggable="true"
+29        android:extractNativeLibs="false"
+30        android:icon="@mipmap/ic_launcher"
+30-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:15:9-43
+31        android:label="RFID 标签管理"
+31-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:16:9-34
+32        android:roundIcon="@mipmap/ic_launcher_round"
+32-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:17:9-54
+33        android:supportsRtl="true"
+33-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:18:9-35
+34        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+34-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:19:9-67
+35        android:usesCleartextTraffic="true" >
+35-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:20:9-44
+36        <activity
+36-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:23:9-30:20
+37            android:name="com.rfidwms.MainActivity"
+37-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:24:13-41
+38            android:exported="true" >
+38-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:25:13-36
+39            <intent-filter>
+39-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:26:13-29:29
+40                <action android:name="android.intent.action.MAIN" />
+40-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:27:17-69
+40-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:27:25-66
+41
+42                <category android:name="android.intent.category.LAUNCHER" />
+42-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:28:17-77
+42-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:28:27-74
+43            </intent-filter>
+44        </activity>
+45
+46        <receiver
+46-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:31:9-38:20
+47            android:name="com.rfidwms.BootReceiver"
+47-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:32:13-41
+48            android:enabled="true"
+48-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:33:13-35
+49            android:exported="true" >
+49-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:34:13-36
+50            <intent-filter>
+50-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:35:13-37:29
+51                <action android:name="android.intent.action.BOOT_COMPLETED" />
+51-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:36:17-79
+51-->/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/app/src/main/AndroidManifest.xml:36:25-76
+52            </intent-filter>
+53        </receiver>
+54
+55        <provider
+55-->[androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+56            android:name="androidx.startup.InitializationProvider"
+56-->[androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+57            android:authorities="com.rfidwms.androidx-startup"
+57-->[androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+58            android:exported="false" >
+58-->[androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+59            <meta-data
+59-->[androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+60                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+60-->[androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+61                android:value="androidx.startup" />
+61-->[androidx.emoji2:emoji2:1.2.0] /Users/pky/.gradle/caches/transforms-4/6bb832052040cf68f8372bde6b86f74c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+62            <meta-data
+62-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+63                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+63-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+64                android:value="androidx.startup" />
+64-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/pky/.gradle/caches/transforms-4/3305805c530ef4c365287c6f76c94c6e/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+65            <meta-data
+65-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+66                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+66-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+67                android:value="androidx.startup" />
+67-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+68        </provider>
+69
+70        <receiver
+70-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+71            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+71-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+72            android:directBootAware="false"
+72-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+73            android:enabled="true"
+73-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+74            android:exported="true"
+74-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+75            android:permission="android.permission.DUMP" >
+75-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+76            <intent-filter>
+76-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+77                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+77-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+77-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+78            </intent-filter>
+79            <intent-filter>
+79-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+80                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+80-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+80-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+81            </intent-filter>
+82            <intent-filter>
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+83                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+83-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+83-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+84            </intent-filter>
+85            <intent-filter>
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+86                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/pky/.gradle/caches/transforms-4/a161a5afd31d181d3ed8fc3d6041bedc/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+87            </intent-filter>
+88        </receiver>
+89    </application>
+90
+91</manifest>

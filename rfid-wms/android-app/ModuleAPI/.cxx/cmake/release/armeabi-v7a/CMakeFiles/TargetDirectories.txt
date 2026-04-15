@@ -1,0 +1,3 @@
+D:/AndroidAppCodeGitee/HCUHF/ModuleAPI/.cxx/cmake/release/armeabi-v7a/CMakeFiles/ModuleAPI.dir
+D:/AndroidAppCodeGitee/HCUHF/ModuleAPI/.cxx/cmake/release/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/AndroidAppCodeGitee/HCUHF/ModuleAPI/.cxx/cmake/release/armeabi-v7a/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/pky/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/.cxx/Debug/5g1s1q2a/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/pky/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/.cxx/Debug/5g1s1q2a/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "ModuleAPI::@6890427a1f51a3e7e1df": {
+      "artifactName": "ModuleAPI",
+      "abi": "arm64-v8a",
+      "output": "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jniLibs/arm64-v8a/libModuleAPI.so",
+      "runtimeFiles": []
+    }
+  }
+}

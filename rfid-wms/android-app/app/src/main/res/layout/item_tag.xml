@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#111827"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <!-- 第一行：EPC + 扫描时间 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:id="@+id/tvItemEpc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="E200 3412 7C0A 8F21"
+            android:textSize="12sp"
+            android:textColor="#38BDF8"
+            android:fontFamily="monospace"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/tvItemTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:30:00"
+            android:textSize="10sp"
+            android:textColor="#475569"
+            android:fontFamily="monospace"/>
+
+    </LinearLayout>
+
+    <!-- TID 行（有 TID 时才显示，用于区分同 EPC 标签） -->
+    <LinearLayout
+        android:id="@+id/layoutTid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_marginBottom="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TID: "
+            android:textSize="10sp"
+            android:textColor="#A78BFA"
+            android:fontFamily="monospace"/>
+
+        <TextView
+            android:id="@+id/tvItemTid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="10sp"
+            android:textColor="#C4B5FD"
+            android:fontFamily="monospace"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
+
+    <!-- 第二行：名称 + 类别 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="2dp">
+
+        <TextView
+            android:id="@+id/tvItemName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="未命名标签"
+            android:textSize="13sp"
+            android:textColor="#E2E8F0"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/tvItemCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未分类"
+            android:textSize="10sp"
+            android:textColor="#0EA5E9"
+            android:background="#0F2236"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"/>
+
+    </LinearLayout>
+
+    <!-- 第三行：数量 + 位置 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量: "
+            android:textSize="11sp"
+            android:textColor="#64748B"/>
+
+        <TextView
+            android:id="@+id/tvItemQty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="11sp"
+            android:textColor="#34D399"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:layout_marginEnd="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📍 "
+            android:textSize="11sp"
+            android:textColor="#64748B"/>
+
+        <TextView
+            android:id="@+id/tvItemLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="未知位置"
+            android:textSize="11sp"
+            android:textColor="#94A3B8"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
+
+    <!-- 第四行：部门 + 使用人 -->
+    <LinearLayout
+        android:id="@+id/layoutDeptUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_marginBottom="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏢 "
+            android:textSize="11sp"
+            android:textColor="#64748B"/>
+
+        <TextView
+            android:id="@+id/tvItemDepartment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="11sp"
+            android:textColor="#94A3B8"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginEnd="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="👤 "
+            android:textSize="11sp"
+            android:textColor="#64748B"/>
+
+        <TextView
+            android:id="@+id/tvItemUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="11sp"
+            android:textColor="#94A3B8"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginEnd="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📅 "
+            android:textSize="11sp"
+            android:textColor="#64748B"/>
+
+        <TextView
+            android:id="@+id/tvItemPurchaseDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="11sp"
+            android:textColor="#94A3B8"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:fontFamily="monospace"/>
+
+    </LinearLayout>
+
+    <!-- 第四行：User Memory 数据（有数据时才显示） -->
+    <LinearLayout
+        android:id="@+id/layoutUserData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="💾 "
+            android:textSize="11sp"
+            android:textColor="#64748B"/>
+
+        <TextView
+            android:id="@+id/tvItemUserData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="11sp"
+            android:textColor="#F59E0B"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:fontFamily="monospace"/>
+
+    </LinearLayout>
+
+</LinearLayout>

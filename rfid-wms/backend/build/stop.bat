@@ -1,0 +1,6 @@
+@echo off
+chcp 65001 >nul 2>&1
+echo 正在停止 RFID 仓储管理系统 ...
+taskkill /f /im RFID-WMS.exe >nul 2>&1
+echo 服务器已停止，按任意键退出 ...
+pause >nul

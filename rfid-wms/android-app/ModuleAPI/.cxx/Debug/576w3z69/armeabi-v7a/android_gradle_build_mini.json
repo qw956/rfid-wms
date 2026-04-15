@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/r2/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/Debug/576w3z69/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/r2/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/.cxx/Debug/576w3z69/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "ModuleAPI::@6890427a1f51a3e7e1df": {
+      "artifactName": "ModuleAPI",
+      "abi": "armeabi-v7a",
+      "output": "/Users/r2/AndroidStudioCode/HC/Company/HCUHF/ModuleAPI/src/main/jniLibs/armeabi-v7a/libModuleAPI.so",
+      "runtimeFiles": []
+    }
+  }
+}

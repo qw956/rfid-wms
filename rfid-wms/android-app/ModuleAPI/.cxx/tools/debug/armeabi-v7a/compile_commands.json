@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/.cxx/Debug/5g1s1q2a/armeabi-v7a",
+  "command": "/Users/pky/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi24 --sysroot=/Users/pky/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DModuleAPI_EXPORTS -I/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/inc -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -fno-limit-debug-info  -fPIC -o CMakeFiles/ModuleAPI.dir/src/Logger.c.o -c /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/src/Logger.c",
+  "file": "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/src/Logger.c"
+},
+{
+  "directory": "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/.cxx/Debug/5g1s1q2a/armeabi-v7a",
+  "command": "/Users/pky/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi24 --sysroot=/Users/pky/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DModuleAPI_EXPORTS -I/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/inc -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -fno-limit-debug-info  -fPIC -o CMakeFiles/ModuleAPI.dir/src/ModuleAPI.c.o -c /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/src/ModuleAPI.c",
+  "file": "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/src/ModuleAPI.c"
+},
+{
+  "directory": "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/.cxx/Debug/5g1s1q2a/armeabi-v7a",
+  "command": "/Users/pky/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi24 --sysroot=/Users/pky/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DModuleAPI_EXPORTS -I/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/inc -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -fno-limit-debug-info  -fPIC -o CMakeFiles/ModuleAPI.dir/src/SerialPort.c.o -c /Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/src/SerialPort.c",
+  "file": "/Users/pky/WorkBuddy/20260407112620/rfid-wms/android-app/ModuleAPI/src/main/jni/src/SerialPort.c"
+}
+]
