@@ -42,7 +42,7 @@ jobs:
           move RFID-WMS.exe dist\
           copy rfid-wms\backend\index.html dist\
           xcopy /E /I rfid-wms\public dist\
-          powershell -Command "Compress-Archive -Path dist\* -DestinationPath RFID-WMS-Windows-Package.zip"
+          powershell -Command "Compress-Archive -Path dist\* -DestinationPath RFID-WMS-Windows-Package.zip -Force"
         shell: cmd
 
       - name: Create Release
