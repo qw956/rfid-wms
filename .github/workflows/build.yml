@@ -26,21 +26,24 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g pkg
-          cd backend
+          cd rfid-wms/backend
           npm install
+        shell: cmd
 
       - name: Build Windows executable
         run: |
-          cd backend
-          pkg server.js --targets node18-win-x64 --output ../RFID-WMS.exe
+          cd rfid-wms/backend
+          pkg server.js --targets node18-win-x64 --output ../../RFID-WMS.exe
+        shell: cmd
 
       - name: Prepare distribution files
         run: |
-          New-Item -ItemType Directory -Force -Path dist
-          Copy-Item RFID-WMS.exe dist/
-          Copy-Item backend/index.html dist/
-          Copy-Item public -Recurse dist/
-          Compress-Archive -Path dist/* -DestinationPath RFID-WMS-Windows-Package.zip
+          mkdir dist
+          move RFID-WMS.exe dist\
+          copy rfid-wms\backend\index.html dist\
+          xcopy /E /I rfid-wms\public dist\
+          powershell -Command "Compress-Archive -Path dist\* -DestinationPath RFID-WMS-Windows-Package.zip"
+        shell: cmd
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/')
