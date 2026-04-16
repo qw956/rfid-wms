@@ -90,8 +90,8 @@ jobs:
         run: |
           :: 安装 Inno Setup
           choco install innosetup -y
-          :: 下载中文语言文件（Inno Setup 默认不带）
-          powershell -Command "$wc = New-Object System.Net.WebClient; $wc.DownloadFile('https://raw.githubusercontent.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl', 'C:\Program Files (x86)\Inno Setup 6\Languages\ChineseSimplified.isl')"
+          :: 复制中文语言文件到 Inno Setup 安装目录
+          copy Languages\ChineseSimplified.isl "C:\Program Files (x86)\Inno Setup 6\Languages\"
 
       # 7. 编译安装向导（ISS 引用 ..\build\ = backend\build\）
       - name: Compile Inno Setup installer
