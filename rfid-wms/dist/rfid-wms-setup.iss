@@ -122,32 +122,15 @@ Type: filesandordirs; Name: "{app}\exports"
 Type: filesandordirs; Name: "{app}\uploads"
 Type: filesandordirs; Name: "{app}\node_modules"
 
+; ========== [Registry] 段：添加或删除程序项 ==========
 [Registry]
-; "添加或删除程序" 卸载项
-Root: HKLM;
-Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}";
-ValueType: string;  ValueName: "DisplayName";         ValueData: "{#MyAppName}"
-Root: HKLM;
-Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}";
-ValueType: string;  ValueName: "UninstallString";     ValueData: """{uninstallexe}"""
-Root: HKLM;
-Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}";
-ValueType: string;  ValueName: "QuietUninstallString"; ValueData: """{uninstallexe}"" /SILENT"
-Root: HKLM;
-Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}";
-ValueType: string;  ValueName: "InstallLocation";     ValueData: "{app}"
-Root: HKLM;
-Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}";
-ValueType: string;  ValueName: "Publisher";           ValueData: "{#MyAppPublisher}"
-Root: HKLM;
-Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}";
-ValueType: string;  ValueName: "DisplayVersion";      ValueData: "{#MyAppVersion}"
-Root: HKLM;
-Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}";
-ValueType: string;  ValueName: "URLInfoAbout";       ValueData: "{#MyAppURL}"
-Root: HKLM;
-Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}";
-ValueType: string;  ValueName: "DisplayIcon";         ValueData: "{app}\{#MyAppExeName}"
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}"; ValueType: string; ValueName: "DisplayName"; ValueData: "{#MyAppName}"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}"; ValueType: string; ValueName: "UninstallString"; ValueData: """{uninstallexe}"""
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}"; ValueType: string; ValueName: "QuietUninstallString"; ValueData: """{uninstallexe}"" /SILENT"
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}"; ValueType: string; ValueName: "InstallLocation"; ValueData: "{app}"
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}"; ValueType: string; ValueName: "Publisher"; ValueData: "{#MyAppPublisher}"
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}"; ValueType: string; ValueName: "DisplayVersion"; ValueData: "{#MyAppVersion}"
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}"; ValueType: string; ValueName: "DisplayIcon"; ValueData: "{app}\{#MyAppExeName}"
 
 ; ========== [Code] 段：安装向导交互 ==========
 [Code]
@@ -161,53 +144,6 @@ var
   lblAccessURL: TNewStaticText;
 
   SavedPort: string;
-  SavedIP: string;
-
-// --- 从系统获取本机局域网 IP ---
-function GetLocalLANIP(): string;
-var
-  WSAData: TWSAData;
-  HostEnt: PHostEnt;
-  Addr: TStringList;
-  i: Integer;
-begin
-  Result := '127.0.0.1';
-  Addr := TStringList.Create;
-  try
-    WSAStartup(MAKEWORD(2, 2), WSAData);
-    try
-      SetLength(HostEnt, 512);
-      if GetHostName(@HostEnt[0], 512) = 0 then
-      begin
-        // 遍历本地地址，找非 127 的 IPv4
-        Addr.Text := IntToStr(AF_INET);
-        for i := 0 to 10 do
-        begin
-          // 用简单方式获取
-        end;
-      end;
-    finally
-      WSACleanup;
-    end;
-  except
-  end;
-  Addr.Free;
-end;
-
-// 简单版：遍历 IP 配置
-function GetActiveLANIP(): string;
-var
-  s: string;
-  lines: TStringList;
-  i: Integer;
-begin
-  Result := '192.168.1.100'; // 默认值
-  // 尝试 ipconfig
-  if Exec('cmd', '/c ipconfig', '', SW_HIDE, ewWaitUntilTerminated, i) then
-  begin
-    // 简单策略：返回第一个以 192.168 或 10. 开头的 IP
-  end;
-end;
 
 procedure InitializeWizard();
 begin
@@ -362,10 +298,8 @@ var
 begin
   if CurPageID = FinishPage.ID then
   begin
-    // 自动检测本机 IP（简化策略：默认 192.168.1.x）
-    ip := SavedIP;
-    if (ip = '') or (ip = '127.0.0.1') then
-      ip := '192.168.1.100';
+    // 默认局域网 IP，安装后可手动修改
+    ip := '192.168.1.100';
 
     // 显示访问信息
     lblAccessURL.Caption :=
