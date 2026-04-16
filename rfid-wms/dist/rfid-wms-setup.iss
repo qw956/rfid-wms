@@ -90,7 +90,7 @@ Source: "..\backend\build\exports\*";           DestDir: "{app}\exports";       
 Source: "..\backend\build\uploads\*";            DestDir: "{app}\uploads";              Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; sql.js WASM 运行时（pkg exe 需加载）
-Source: "..\backend\build\node_modules\sql.js\dist\*"; DestDir: "{app}\node_modules\sql.js\dist"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\backend\build\node_modules\sql.js\dist\*"; DestDir: "{app}\node_modules\sql.js\dist"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
 
 ; Android APK（如有）
 Source: "..\backend\build\public\*";             DestDir: "{app}\public";               Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
