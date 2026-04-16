@@ -89,15 +89,15 @@ jobs:
         run: copy rfid-wms\Languages\ChineseSimplified.isl "C:\Program Files (x86)\Inno Setup 6\Languages\"
         shell: cmd
 
-      # 8. 编译安装向导
+      # 8. 编译安装向导（ISCC 默认输出到 rfid-wms/dist/，改为根目录）
       - name: Compile Inno Setup installer
-        run: '"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" rfid-wms\dist\rfid-wms-setup.iss'
+        run: '"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /O. rfid-wms\dist\rfid-wms-setup.iss'
         shell: cmd
 
-      # 9. 验证 exe 生成
+      # 9. 验证 exe 生成（ISCC /O. 输出到仓库根目录）
       - name: Verify installer
         run: |
-          dir rfid-wms\dist\*.exe
+          dir RFID资产盘点-Setup-1.0.0.exe
         shell: cmd
 
       # 10. 打包 ZIP
@@ -109,7 +109,7 @@ jobs:
       - name: Upload to Release
         run: |
           powershell -Command "Write-Host 'Uploading assets...'"
-          curl -s -X POST -H "Authorization: token %GITHUB_TOKEN%" -H "Content-Type: application/octet-stream" --data-binary "@rfid-wms\dist\RFID资产盘点-Setup-1.0.0.exe" "https://uploads.github.com/repos/qw956/rfid-wms/releases/309626145/assets?name=RFID%E8%B5%84%E4%BA%A7%E7%9B%98%E7%82%B9-Setup-1.0.0.exe"
+          curl -s -X POST -H "Authorization: token %GITHUB_TOKEN%" -H "Content-Type: application/octet-stream" --data-binary "@RFID资产盘点-Setup-1.0.0.exe" "https://uploads.github.com/repos/qw956/rfid-wms/releases/309626145/assets?name=RFID%E8%B5%84%E4%BA%A7%E7%9B%98%E7%82%B9-Setup-1.0.0.exe"
           curl -s -X POST -H "Authorization: token %GITHUB_TOKEN%" -H "Content-Type: application/zip" --data-binary "@RFID-WMS-Package.zip" "https://uploads.github.com/repos/qw956/rfid-wms/releases/309626145/assets?name=RFID-WMS-Package.zip"
         shell: cmd
         env:
