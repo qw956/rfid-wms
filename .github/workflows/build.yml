@@ -85,10 +85,13 @@ jobs:
           dir rfid-wms\backend\build\web /b 2>nul || echo "web empty"
           dir rfid-wms\backend\build\public\download\apk /b 2>nul || echo "apk missing"
 
-      # 6. 安装 Inno Setup（通过 Chocolatey）
+      # 6. 安装 Inno Setup（通过 Chocolatey）并下载中文语言文件
       - name: Install Inno Setup
-        run: choco install innosetup -y
-        shell: cmd
+        run: |
+          :: 安装 Inno Setup
+          choco install innosetup -y
+          :: 下载中文语言文件（Inno Setup 默认不带）
+          powershell -Command "$wc = New-Object System.Net.WebClient; $wc.DownloadFile('https://raw.githubusercontent.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl', 'C:\Program Files (x86)\Inno Setup 6\Languages\ChineseSimplified.isl')"
 
       # 7. 编译安装向导（ISS 引用 ..\build\ = backend\build\）
       - name: Compile Inno Setup installer
