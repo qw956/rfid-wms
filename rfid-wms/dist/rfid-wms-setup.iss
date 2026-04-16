@@ -134,194 +134,33 @@ Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyApp
 
 ; ========== [Code] 段：安装向导交互 ==========
 [Code]
-var
-  ConfigPage: TOutputMsgWizardPage;     // 向导第2页：系统配置
-  edtPort: TNewEdit;
-  lblPort, lblHint: TNewStaticText;
-  chkFirewall: TNewCheckbox;
-
-  FinishPage: TOutputMsgWizardPage;    // 完成页：显示 IP+端口
-  lblAccessURL: TNewStaticText;
-
-  SavedPort: string;
-
-procedure InitializeWizard();
-begin
-  // ============================================================
-  // 第2页：系统配置（端口 + 防火墙）
-  // ============================================================
-  ConfigPage := CreateOutputMsgPage(
-    wpSelectDir,
-    '系统配置',
-    '配置服务器端口和防火墙策略',
-    '请设置本系统的运行参数，完成后点击"下一步"继续安装。' + #13#10 +
-    '' + #13#10 +
-    '【重要】请记录以下信息用于 PDA 设备配置：' + #13#10 +
-    '  服务器地址 = 本机局域网 IP' + #13#10 +
-    '  端口       = 下方的端口号（默认 3000）',
-    False
-  );
-
-  // 端口标签
-  lblPort := TNewStaticText.Create(WizardForm);
-  lblPort.Parent := ConfigPage.Surface;
-  lblPort.Caption := '服务器端口 (1-65535):';
-  lblPort.AutoSize := True;
-  lblPort.Left := ConfigPage.Left + 20;
-  lblPort.Top := ConfigPage.Top + 100;
-
-  // 端口输入框
-  edtPort := TNewEdit.Create(WizardForm);
-  edtPort.Parent := ConfigPage.Surface;
-  edtPort.Text := '3000';
-  edtPort.Width := 100;
-  edtPort.Left := lblPort.Left;
-  edtPort.Top := lblPort.Top + lblPort.Height + 6;
-
-  // 端口提示
-  lblHint := TNewStaticText.Create(WizardForm);
-  lblHint.Parent := ConfigPage.Surface;
-  lblHint.Caption := 'PDA 设备连接到此端口（默认 3000，无需修改）';
-  lblHint.Font.Color := clNavy;
-  lblHint.AutoSize := True;
-  lblHint.Left := edtPort.Left;
-  lblHint.Top := edtPort.Top + edtPort.Height + 4;
-
-  // 防火墙复选框（对应 Tasks）
-  chkFirewall := TNewCheckbox.Create(WizardForm);
-  chkFirewall.Parent := ConfigPage.Surface;
-  chkFirewall.Caption := '自动放行防火墙端口（推荐）';
-  chkFirewall.Hint := '允许局域网设备访问本系统';
-  chkFirewall.Checked := True;
-  chkFirewall.Width := ConfigPage.SurfaceWidth - 40;
-  chkFirewall.Left := edtPort.Left;
-  chkFirewall.Top := lblHint.Top + lblHint.Height + 20;
-
-  // 说明文字
-  with TNewStaticText.Create(WizardForm) do
-  begin
-    Parent := ConfigPage.Surface;
-    Caption := '注：安装完成后，配置文件 config.ini 位于安装目录下，' + #13#10 +
-               '修改后重启服务器即可生效。';
-    Font.Color := clGrayText;
-    AutoSize := True;
-    Left := edtPort.Left;
-    Top := chkFirewall.Top + chkFirewall.Height + 16;
-  end;
-
-  // ============================================================
-  // 第4页（最后）：安装完成
-  // ============================================================
-  FinishPage := CreateOutputMsgPage(
-    wpFinished,
-    '安装完成',
-    'RFID 仓储管理系统已安装成功',
-    '',
-    True
-  );
-
-  // 访问地址（动态填充）
-  lblAccessURL := TNewStaticText.Create(WizardForm);
-  lblAccessURL.Parent := FinishPage.Surface;
-  lblAccessURL.AutoSize := False;
-  lblAccessURL.Width := FinishPage.SurfaceWidth;
-  lblAccessURL.Height := 80;
-  lblAccessURL.Left := FinishPage.Left + 20;
-  lblAccessURL.Top := FinishPage.Top + 60;
-  lblAccessURL.Font.Size := 10;
-  lblAccessURL.Font.Color := clNavy;
-  lblAccessURL.Caption := '';
-end;
-
-// 下一步按钮点击：校验端口
+// 端口校验：确保用户输入有效端口
 function NextButtonClick(CurPageID: Integer): Boolean;
 var
-  portStr: string;
   portNum: Integer;
 begin
   Result := True;
-
-  if CurPageID = ConfigPage.ID then
+  if CurPageID = wpSelectDir then
   begin
-    portStr := Trim(edtPort.Text);
-
-    // 端口校验
-    if (portStr = '') or (not TryStrToInt(portStr, portNum)) or
-       (portNum < 1) or (portNum > 65535) then
+    if not TryStrToInt(ExpandConstant('{param}'), portNum) then
     begin
-      MsgBox('{cm:badPort}', mbError, MB_OK);
-      edtPort.SetFocus;
+      MsgBox('请输入有效端口号（1-65535）', mbError, MB_OK);
       Result := False;
-      Exit;
     end;
-
-    SavedPort := portStr;
-    // 更新防火墙任务状态
-    if chkFirewall.Checked then
-      WizardForm.DoTask('firewall')
-    else
-      WizardForm.UncheckTask('firewall');
   end;
 end;
 
-// 安装过程中写入配置文件
+// 安装完成后：放行防火墙端口 + 启动说明
 procedure CurStepChanged(CurStep: TSetupStep);
 var
-  ConfigPath: string;
-  F: TextFile;
-begin
-  if CurStep = ssInstall then
-  begin
-    ConfigPath := ExpandConstant('{app}\config.ini');
-
-    // 写入含端口配置的文件（覆盖模板）
-    AssignFile(F, ConfigPath);
-    Rewrite(F);
-    WriteLn(F, '# RFID 仓储管理系统配置文件');
-    WriteLn(F, '# 安装向导生成，安装后修改此文件，重启服务器生效');
-    WriteLn(F, '');
-    WriteLn(F, '# 服务器端口（默认3000）');
-    WriteLn(F, 'port=' + SavedPort);
-    WriteLn(F, '');
-    WriteLn(F, '# 服务器绑定地址（0.0.0.0=局域网可访问，127.0.0.1=仅本机）');
-    WriteLn(F, 'host=0.0.0.0');
-    CloseFile(F);
-  end;
-end;
-
-// 完成页显示时：执行防火墙 + 显示访问地址
-procedure CurPageChanged(CurPageID: Integer);
-var
   ResultCode: Integer;
-  ip: string;
-  InfoPage: TWizardPage;
 begin
-  if CurPageID = FinishPage.ID then
+  if CurStep = ssPostInstall then
   begin
-    // 默认局域网 IP，安装后可手动修改
-    ip := '192.168.1.100';
-
-    // 显示访问信息
-    lblAccessURL.Caption :=
-      '============================================' + #13#10 +
-      '  访问地址（电脑浏览器）' + #13#10 +
-      '  http://localhost:' + SavedPort + #13#10 +
-      '' + #13#10 +
-      '  PDA 设备连接地址（手持机配置用）' + #13#10 +
-      '  http://' + ip + ':' + SavedPort + #13#10 +
-      '============================================' + #13#10 +
-      '' + #13#10 +
-      '配置文件位置: {app}\config.ini' + #13#10 +
-      '修改端口后重启服务器即可生效';
-
-    // 执行防火墙放行（如勾选）
-    if chkFirewall.Checked then
+    // 放行防火墙（如果有勾选firewall任务）
+    if IsTaskSelected('firewall') then
     begin
-      Exec('netsh',
-           'advfirewall firewall add rule name="RFID资产盘点 ' + SavedPort +
-           '" dir=in action=allow protocol=TCP localport=' + SavedPort,
-           '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-      MsgBox('防火墙端口 ' + SavedPort + ' 已放行！', mbInformation, MB_OK);
+      Exec('netsh', 'advfirewall firewall add rule name="RFID资产盘点 3000" dir=in action=allow protocol=TCP localport=3000', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
     end;
   end;
 end;
