@@ -85,24 +85,10 @@ jobs:
           dir rfid-wms\backend\build\web /b 2>nul || echo "web empty"
           dir rfid-wms\backend\build\public\download\apk /b 2>nul || echo "apk missing"
 
-      # 6. 下载并安装 Inno Setup
+      # 6. 安装 Inno Setup（通过 Chocolatey）
       - name: Install Inno Setup
-        shell: powershell
-        run: |
-          $isUrl = "https://files.jrsoftware.org/is/6/is6.4.1.exe"
-          $installer = "$env:TEMP\innosetup.exe"
-          Write-Host "Downloading Inno Setup..."
-          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-          $wc = New-Object System.Net.WebClient
-          $wc.DownloadFile($isUrl, $installer)
-          Write-Host "Installing (silent)..."
-          Start-Process -FilePath $installer -ArgumentList "/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/ALLUSERS" -Wait
-          if (Test-Path "C:\Program Files (x86)\Inno Setup 6\ISCC.exe") {
-            Write-Host "Inno Setup installed successfully"
-          } else {
-            Write-Host "ERROR: ISCC.exe not found"
-            exit 1
-          }
+        run: choco install innosetup -y
+        shell: cmd
 
       # 7. 编译安装向导（ISS 引用 ..\build\ = backend\build\）
       - name: Compile Inno Setup installer
