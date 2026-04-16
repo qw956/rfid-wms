@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      # 3. 安装 pkg 并编译 exe（输出到 backend/build/）
+      # 3. 编译 exe
       - name: Build Windows executable
         shell: cmd
         run: |
@@ -35,15 +35,14 @@ jobs:
           mkdir build
           npm install
           pkg server.js --targets node18-win-x64 --output ./build/RFID-WMS.exe
-        continue-on-error: false
 
-      # 4. 把发行文件复制到 backend/build/（ISS 引用路径相对于 rfid-wms/dist/rfid-wms-setup.iss）
+      # 4. 准备发行文件
       - name: Prepare distribution files
         shell: cmd
         run: |
           cd rfid-wms
 
-          :: web 前端
+          :: Web 前端
           if not exist backend\build\web mkdir backend\build\web
           copy /Y index.html backend\build\web\
 
@@ -51,97 +50,67 @@ jobs:
           if not exist backend\build\public mkdir backend\build\public
           xcopy /E /I /Y public backend\build\public
 
-          :: 配置文件
+          :: 配置与脚本
           copy /Y backend\config.ini backend\build\
-
-          :: 启动脚本
           copy /Y backend\start.bat backend\build\
           copy /Y backend\stop.bat backend\build\
           copy /Y backend\uninstall-firewall.bat backend\build\
 
-          :: 运行时数据目录（空目录，由系统创建）
+          :: 运行时空目录
           if not exist backend\build\data mkdir backend\build\data
           if not exist backend\build\logs mkdir backend\build\logs
           if not exist backend\build\scan_files mkdir backend\build\scan_files
           if not exist backend\build\exports mkdir backend\build\exports
           if not exist backend\build\uploads mkdir backend\build\uploads
 
-          :: sql.js WASM 运行时
-          if not exist backend\build\node_modules\sql.js\dist mkdir backend\build\node_modules\sql.js\dist
+          :: sql.js WASM
           if exist backend\node_modules\sql.js\dist (
+            if not exist backend\build\node_modules\sql.js\dist mkdir backend\build\node_modules\sql.js\dist
             xcopy /E /I /Y backend\node_modules\sql.js\dist backend\build\node_modules\sql.js\dist
           )
 
           :: ISS 脚本
           copy /Y dist\rfid-wms-setup.iss backend\build\
 
-          echo Done preparing distribution
-
-      # 5. 验证 backend/build 目录
+      # 5. 验证
       - name: Verify build directory
         shell: cmd
         run: |
           dir rfid-wms\backend\build /b
-          dir rfid-wms\backend\build\web /b 2>nul || echo "web empty"
-          dir rfid-wms\backend\build\public\download\apk /b 2>nul || echo "apk missing"
+          if not exist rfid-wms\backend\build\RFID-WMS.exe exit 1
 
-      # 6. 安装 Inno Setup（通过 Chocolatey）并下载中文语言文件
+      # 6. 安装 Inno Setup
       - name: Install Inno Setup
-        run: |
-          :: 安装 Inno Setup
-          choco install innosetup -y
-          :: 复制中文语言文件到 Inno Setup 安装目录
-          copy Languages\ChineseSimplified.isl "C:\Program Files (x86)\Inno Setup 6\Languages\"
+        run: choco install innosetup -y
+        shell: cmd
 
-      # 7. 编译安装向导（ISS 引用 ..\build\ = backend\build\）
+      # 7. 复制中文语言文件
+      - name: Copy Chinese language file
+        run: copy Languages\ChineseSimplified.isl "C:\Program Files (x86)\Inno Setup 6\Languages\"
+        shell: cmd
+
+      # 8. 编译安装向导
       - name: Compile Inno Setup installer
+        run: '"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" rfid-wms\dist\rfid-wms-setup.iss'
         shell: cmd
-        run: |
-          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" rfid-wms\dist\rfid-wms-setup.iss
-        continue-on-error: false
 
-      # 8. 验证生成的 exe
-      - name: Verify installer exe
+      # 9. 验证 exe 生成
+      - name: Verify installer
+        run: |
+          dir rfid-wms\dist\*.exe
         shell: cmd
-        run: |
-          if exist rfid-wms\dist\RFID资产盘点-Setup-1.0.0.exe (
-            echo Installer created successfully
-            dir rfid-wms\dist\*.exe
-          ) else (
-            dir rfid-wms\dist\
-            echo ERROR: Setup exe not found
-            exit 1
-          )
 
-      # 9. 打包完整 ZIP（含 exe + 全部资源）
+      # 10. 打包 ZIP
       - name: Package ZIP
+        run: powershell -Command "Compress-Archive -Path 'rfid-wms\backend\build\*' -DestinationPath 'RFID-WMS-Package.zip' -Force"
         shell: cmd
-        run: |
-          powershell -Command "Compress-Archive -Path 'rfid-wms\backend\build\*' -DestinationPath 'RFID-WMS-Package.zip' -Force"
-          dir RFID-WMS-Package.zip
 
-      # 10. 上传到 GitHub Release
-      - name: Upload to GitHub Release
+      # 11. 上传到 Release
+      - name: Upload to Release
+        run: |
+          powershell -Command "Write-Host 'Uploading assets...'"
+          curl -s -X POST -H "Authorization: token %GITHUB_TOKEN%" -H "Content-Type: application/octet-stream" --data-binary "@rfid-wms\dist\RFID资产盘点-Setup-1.0.0.exe" "https://uploads.github.com/repos/qw956/rfid-wms/releases/309626145/assets?name=RFID%E8%B5%84%E4%BA%A7%E7%9B%98%E7%82%B9-Setup-1.0.0.exe"
+          curl -s -X POST -H "Authorization: token %GITHUB_TOKEN%" -H "Content-Type: application/zip" --data-binary "@RFID-WMS-Package.zip" "https://uploads.github.com/repos/qw956/rfid-wms/releases/309626145/assets?name=RFID-WMS-Package.zip"
         shell: cmd
-        run: |
-          :: 获取最新 Release ID
-          for /f "delims=" %%i in ('curl -s -H "Authorization: token %GITHUB_TOKEN%" "https://api.github.com/repos/qw956/rfid-wms/releases/latest" ^| findstr /C:"\"id\":" ^| findstr /V "assets"') do set "line=%%i"
-          echo Release assets upload ready
-
-          :: 上传安装程序
-          curl -s -X POST ^
-            -H "Authorization: token %GITHUB_TOKEN%" ^
-            -H "Content-Type: application/octet-stream" ^
-            --data-binary "@rfid-wms\dist\RFID资产盘点-Setup-1.0.0.exe" ^
-            "https://uploads.github.com/repos/qw956/rfid-wms/releases/attachments/assets?name=RFID%E8%B5%84%E4%BA%A7%E7%9B%98%E7%82%B9-Setup-1.0.0.exe"
-
-          :: 上传 ZIP
-          curl -s -X POST ^
-            -H "Authorization: token %GITHUB_TOKEN%" ^
-            -H "Content-Type: application/zip" ^
-            --data-binary "@RFID-WMS-Package.zip" ^
-            "https://uploads.github.com/repos/qw956/rfid-wms/releases/attachments/assets?name=RFID-WMS-Package.zip"
-
-          echo Upload complete
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
