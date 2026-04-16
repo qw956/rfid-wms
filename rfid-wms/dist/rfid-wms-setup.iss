@@ -43,9 +43,7 @@ ArchitecturesInstallIn64BitMode=x64compatible
 UninstallDisplayIcon={app}\{#MyAppExeName}
 SetupLogging=yes
 
-; ---------- 中文支持 ----------
-ResourceFortranSize=0
-
+; ---------- 语言 ----------
 [Languages]
 Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 Name: "english"; MessagesFile: "compiler:Default.isl"
