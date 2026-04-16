@@ -1,4 +1,4 @@
-# RFID WMS Windows 构建自动化
+# RFID WMS Windows 安装程序构建
 name: Build Windows Installer
 
 on:
@@ -8,6 +8,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+env:
+  NODE_VERSION: '18'
+
 jobs:
   build:
     runs-on: windows-latest
@@ -15,40 +18,113 @@ jobs:
       contents: write
 
     steps:
+      # 1. 检出代码
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. 安装 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install dependencies
+      # 3. 安装 pkg 并编译 exe
+      - name: Build Windows executable
+        shell: cmd
         run: |
           npm install -g pkg
           cd rfid-wms/backend
           npm install
-        shell: cmd
+          pkg server.js --targets node18-win-x64 --output ../build/RFID-WMS.exe
 
-      - name: Build Windows executable
-        run: |
-          cd rfid-wms/backend
-          pkg server.js --targets node18-win-x64 --output ../../RFID-WMS.exe
-        shell: cmd
-
+      # 4. 准备发行文件（复制到 rfid-wms/backend/build/）
       - name: Prepare distribution files
-        run: |
-          powershell -Command "Copy-Item -Recurse rfid-wms/backend/build dist; Remove-Item -Force dist/RFID-WMS.exe -ErrorAction SilentlyContinue; Copy-Item -Force RFID-WMS.exe dist/"
-          powershell -Command "Compress-Archive -Path 'dist\*' -DestinationPath 'RFID-WMS-Windows-Package.zip' -Force"
         shell: cmd
+        run: |
+          cd rfid-wms
+          xcopy /E /I /Y backend\index.html backend\build\web\ 2>nul
+          xcopy /E /I /Y backend\public backend\build\public\ 2>nul
+          xcopy /E /I /Y backend\config.ini backend\build\ 2>nul
+          xcopy /E /I /Y backend\start.bat backend\build\ 2>nul
+          xcopy /E /I /Y backend\stop.bat backend\build\ 2>nul
+          xcopy /E /I /Y backend\uninstall-firewall.bat backend\build\ 2>nul
+          if not exist backend\build\data mkdir backend\build\data
+          if not exist backend\build\logs mkdir backend\build\logs
+          if not exist backend\build\scan_files mkdir backend\build\scan_files
+          if not exist backend\build\exports mkdir backend\build\exports
+          if not exist backend\build\uploads mkdir backend\build\uploads
+          xcopy /E /I /Y backend\node_modules\sql.js\dist backend\build\node_modules\sql.js\dist 2>nul
 
-      - name: Upload artifact to repo
+      # 5. 下载并安装 Inno Setup（用于编译安装向导）
+      - name: Install Inno Setup
+        shell: powershell
         run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git checkout main
-          powershell -Command "Compress-Archive -Path 'dist\*' -DestinationPath 'RFID-WMS-Windows-Package.zip' -Force"
-          git add -f RFID-WMS-Windows-Package.zip
-          git commit -m "Update Windows package $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/qw956/rfid-wms.git main
+          $isVersion = "6.4.1"
+          $isUrl = "https://files.jrsoftware.org/is/6/is${isVersion}.exe"
+          $installer = "$env:TEMP\innosetup.exe"
+          Write-Host "Downloading Inno Setup $isVersion..."
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          curl -L -o $installer $isUrl
+          Write-Host "Installing Inno Setup..."
+          Start-Process -FilePath $installer -ArgumentList "/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART" -Wait
+          Write-Host "Done"
+
+      # 6. 编译安装向导（生成 Setup.exe）
+      - name: Compile Inno Setup installer
         shell: cmd
+        run: |
+          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" rfid-wms\dist\rfid-wms-setup.iss
+        continue-on-error: false
+
+      # 7. 打包完整 ZIP（含 exe + build 目录）
+      - name: Package ZIP
+        shell: cmd
+        run: |
+          powershell -Command "Compress-Archive -Path 'rfid-wms\backend\build\*' -DestinationPath 'RFID-WMS-Package.zip' -Force"
+
+      # 8. 获取版本号（用于 Release 名）
+      - name: Get version
+        id: version
+        shell: bash
+        run: |
+          REF="${{ github.ref }}"
+          if [[ $REF == refs/tags/* ]]; then
+            VERSION="${REF#refs/tags/}"
+          else
+            VERSION="latest"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "IS_TAG=$([[ $REF == refs/tags/* ]] && echo true || echo false)" >> $GITHUB_OUTPUT
+
+      # 9. 创建或更新 Release
+      - name: Create or update Release
+        if: steps.version.outputs.IS_TAG == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: RFID WMS ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          files: |
+            RFID-WMS-Setup.exe
+            RFID-WMS-Package.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 10. 上传到最新 Release（始终上传）
+      - name: Upload to Release
+        shell: cmd
+        run: |
+          curl -s -X POST ^
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" ^
+            -H "Content-Type: application/octet-stream" ^
+            --data-binary "@RFID-WMS-Setup.exe" ^
+            "https://uploads.github.com/repos/${{ github.repository }}/releases/attachments/assets?name=RFID-WMS-Setup.exe" ^
+            -o upload_result.json
+          curl -s -X POST ^
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" ^
+            -H "Content-Type: application/zip" ^
+            --data-binary "@RFID-WMS-Package.zip" ^
+            "https://uploads.github.com/repos/${{ github.repository }}/releases/attachments/assets?name=RFID-WMS-Package.zip" ^
+            -o upload_result2.json
+          echo "Upload complete"
