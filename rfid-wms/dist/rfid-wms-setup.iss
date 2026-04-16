@@ -134,33 +134,14 @@ Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#MyApp
 
 ; ========== [Code] 段：安装向导交互 ==========
 [Code]
-// 端口校验：确保用户输入有效端口
-function NextButtonClick(CurPageID: Integer): Boolean;
-var
-  portNum: Integer;
-begin
-  Result := True;
-  if CurPageID = wpSelectDir then
-  begin
-    if not TryStrToInt(ExpandConstant('{param}'), portNum) then
-    begin
-      MsgBox('请输入有效端口号（1-65535）', mbError, MB_OK);
-      Result := False;
-    end;
-  end;
-end;
-
-// 安装完成后：放行防火墙端口 + 启动说明
+// 安装完成后放行防火墙
 procedure CurStepChanged(CurStep: TSetupStep);
 var
   ResultCode: Integer;
 begin
   if CurStep = ssPostInstall then
   begin
-    // 放行防火墙（如果有勾选firewall任务）
     if IsTaskSelected('firewall') then
-    begin
       Exec('netsh', 'advfirewall firewall add rule name="RFID资产盘点 3000" dir=in action=allow protocol=TCP localport=3000', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-    end;
   end;
 end;
