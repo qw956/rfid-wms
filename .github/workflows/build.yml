@@ -86,7 +86,7 @@ jobs:
 
       # 7. 复制中文语言文件
       - name: Copy Chinese language file
-        run: copy Languages\ChineseSimplified.isl "C:\Program Files (x86)\Inno Setup 6\Languages\"
+        run: copy rfid-wms\Languages\ChineseSimplified.isl "C:\Program Files (x86)\Inno Setup 6\Languages\"
         shell: cmd
 
       # 8. 编译安装向导
