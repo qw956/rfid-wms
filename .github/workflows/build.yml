@@ -93,7 +93,7 @@ jobs:
           $installer = "$env:TEMP\innosetup.exe"
           Write-Host "Downloading Inno Setup..."
           [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-          curl -L -o $installer $isUrl
+          Start-BitsTransfer -Source $isUrl -Destination $installer -Description "InnoSetup"
           Write-Host "Installing (silent)..."
           Start-Process -FilePath $installer -ArgumentList "/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/ALLUSERS" -Wait
           if (Test-Path "C:\Program Files (x86)\Inno Setup 6\ISCC.exe") {
